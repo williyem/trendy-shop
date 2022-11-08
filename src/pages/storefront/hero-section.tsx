@@ -14,13 +14,33 @@ interface FeaturedType {
   imageSrc: string;
   imageAlt: string;
 }
+interface PagesType {
+  name: string;
+  href: string;
+}
 interface CategoriesType {
   name: string;
-  featured?: FeaturedType;
+  featured: FeaturedType[];
+}
+
+interface Category {
+  name: string;
+  href: string;
+  imageSrc: string;
+}
+
+interface Collections extends Category {
+  imageAlt: string;
+  description: string;
+}
+
+interface Navigation {
+  categories: CategoriesType[];
+  pages: PagesType[];
 }
 
 const currencies: string[] = ["CAD", "USD", "AUD", "EUR", "GBP"];
-const navigation = {
+const navigation: Navigation = {
   categories: [
     {
       name: "Women",
@@ -101,7 +121,7 @@ const navigation = {
     { name: "Stores", href: "#" },
   ],
 };
-const categories = [
+const categories: Category[] = [
   {
     name: "New Arrivals",
     href: "#",
@@ -133,7 +153,7 @@ const categories = [
       "https://tailwindui.com/img/ecommerce-images/home-page-01-category-03.jpg",
   },
 ];
-const collections = [
+const collections: Collections[] = [
   {
     name: "Handcrafted Collection",
     href: "#",
@@ -271,7 +291,7 @@ const HeroSection: React.FC = () => {
                       className="px-4 py-6 space-y-12"
                     >
                       <div className="grid grid-cols-2 gap-x-4 gap-y-10">
-                        {category.featured.map((item) => (
+                        {category?.featured?.map((item) => (
                           <div key={item.name} className="group relative">
                             <div className="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
                               <img
