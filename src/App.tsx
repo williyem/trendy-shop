@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PageWrapper from "./layout/page-wrapper/page-wrapper";
-import HeroSection from "./pages/storefront/hero-section";
+import HeroSection from "./pages/storefront/hero-section/hero-section";
 
 function App() {
   return (
