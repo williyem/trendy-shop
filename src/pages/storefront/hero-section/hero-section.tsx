@@ -5,19 +5,17 @@ import {
   categories,
   classNames,
   collections,
+  contentSectionData,
   currencies,
   navigation,
 } from "../../../helpers/ui-data";
 import CategorySection from "../category-section/category-section";
 import ContentSection from "../content-section/content-section";
+import CollectionSection from "../collection-section/collection-section";
 
 const heroImg = require("../../../assets/images/hero.jpg");
 
 const HeroSection: React.FC = () => {
-  const contentData = {
-    title: "",
-    description: "",
-  };
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   return (
@@ -238,88 +236,13 @@ const HeroSection: React.FC = () => {
         <CategorySection />
 
         {/* Featured section */}
-        <ContentSection content={contentData} />
+        <ContentSection content={contentSectionData[0]} />
         {/* Collection section */}
-        <section
-          aria-labelledby="collection-heading"
-          className="max-w-xl mx-auto pt-24 px-4 sm:pt-32 sm:px-6 lg:max-w-7xl lg:px-8"
-        >
-          <h2
-            id="collection-heading"
-            className="text-2xl font-extrabold tracking-tight text-gray-900"
-          >
-            Shop by Collection
-          </h2>
-          <p className="mt-4 text-base text-gray-500">
-            Each season, we collaborate with world-class designers to create a
-            collection inspired by the natural world.
-          </p>
-
-          <div className="mt-10 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-8">
-            {collections.map((collection) => (
-              <a
-                key={collection.name}
-                href={collection.href}
-                className="group block"
-              >
-                <div
-                  aria-hidden="true"
-                  className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden group-hover:opacity-75 lg:aspect-w-5 lg:aspect-h-6"
-                >
-                  <img
-                    src={collection.imageSrc}
-                    alt={collection.imageAlt}
-                    className="w-full h-full object-center object-cover"
-                  />
-                </div>
-                <h3 className="mt-4 text-base font-semibold text-gray-900">
-                  {collection.name}
-                </h3>
-                <p className="mt-2 text-sm text-gray-500">
-                  {collection.description}
-                </p>
-              </a>
-            ))}
-          </div>
-        </section>
-
+        <CollectionSection />
         {/* Featured section */}
-        <section
-          aria-labelledby="comfort-heading"
-          className="max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8"
-        >
-          <div className="relative rounded-lg overflow-hidden">
-            <div className="absolute inset-0">
-              <img
-                src="https://tailwindui.com/img/ecommerce-images/home-page-01-feature-section-02.jpg"
-                alt=""
-                className="w-full h-full object-center object-cover"
-              />
-            </div>
-            <div className="relative bg-gray-900 bg-opacity-75 py-32 px-6 sm:py-40 sm:px-12 lg:px-16">
-              <div className="relative max-w-3xl mx-auto flex flex-col items-center text-center">
-                <h2
-                  id="comfort-heading"
-                  className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl"
-                >
-                  Simple productivity
-                </h2>
-                <p className="mt-3 text-xl text-white">
-                  Endless tasks, limited hours, a single piece of paper. Not
-                  really a haiku, but we're doing our best here. No kanban
-                  boards, burndown charts, or tangled flowcharts with our Focus
-                  system. Just the undeniable urge to fill empty circles.
-                </p>
-                <a
-                  href="#"
-                  className="mt-8 w-full block bg-white border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"
-                >
-                  Shop Focus
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
+        <div className="pb-8 sm:pb-24 ">
+          <ContentSection content={contentSectionData[1]} />
+        </div>
       </main>
     </div>
   );

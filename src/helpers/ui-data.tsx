@@ -145,8 +145,7 @@ export const collections: Collections[] = [
   {
     name: "Handcrafted Collection",
     href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-01-collection-01.jpg",
+    imageSrc: require("../assets/images/feature2.jpg"),
     imageAlt:
       "Brown leather key ring with brass metal loops and rivets on wood table.",
     description:
@@ -155,8 +154,7 @@ export const collections: Collections[] = [
   {
     name: "Organized Desk Collection",
     href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-01-collection-02.jpg",
+    imageSrc: require("../assets/images/feature4.jpg"),
     imageAlt:
       "Natural leather mouse pad on white desk next to porcelain mug and keyboard.",
     description:
@@ -165,8 +163,7 @@ export const collections: Collections[] = [
   {
     name: "Focus Collection",
     href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-01-collection-03.jpg",
+    imageSrc: require("../assets/images/feature3.jpg"),
     imageAlt:
       "Person placing task list card into walnut card holder next to felt carrying case on leather desk pad.",
     description:
@@ -201,3 +198,23 @@ export const footerNavigation = {
     { name: "Pinterest", href: "#" },
   ],
 };
+
+export const contentSectionData = [
+  {
+    title: "Simple productivity",
+    description:
+      "Endless tasks, limited hours, a single piece of paper. Not really a haiku, but we're doing our best here. No kanban boards, burndown charts, or tangled flowcharts with our Focus system. Just the undeniable urge to fill empty circles.",
+    imageUrl: require("../assets/images/feature1.jpg"),
+    button: "focus",
+    href: "#",
+  },
+  {
+    title: "Simple productivity",
+    description:
+      "Endless tasks, limited hours, a single piece of paper. Not really a haiku, but we're doing our best here. No kanban boards, burndown charts, or tangled flowcharts with our Focus system. Just the undeniable urge to fill empty circles.",
+    imageUrl: require("../assets/images/feature3.jpg"),
+    link: "",
+    button: "focus",
+    href: "#",
+  },
+];
