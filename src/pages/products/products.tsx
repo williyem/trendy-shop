@@ -1,4 +1,5 @@
 import ProductFilter from "./components/product-filter";
+import ProductQuickview from "./../../components/product-quickview/product-quickview";
 
 /* This example requires Tailwind CSS v2.0+ */
 const products = [
@@ -68,6 +69,7 @@ const products = [
 const Products: React.FC = () => {
   return (
     <>
+      <ProductQuickview />
       <ProductFilter>
         <div className="bg-white">
           <div className="max-w-2xl mx-auto lg:max-w-7xl ">

@@ -56,9 +56,9 @@ const filters = [
     ],
   },
 ];
-type BoxProps = {
+interface BoxProps {
   children: React.ReactNode; // 👈️ type children
-};
+}
 
 const ProductFilter = ({ children }: BoxProps) => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
