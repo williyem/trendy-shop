@@ -14,11 +14,11 @@ import {
 const navigation = {
   categories: [
     {
-      name: "Women",
+      name: "Clothing",
       featured: [
-        { name: "Sleep", href: "#" },
-        { name: "Swimwear", href: "#" },
-        { name: "Underwear", href: "#" },
+        { name: "men", href: "#" },
+        { name: "women", href: "#" },
+        { name: "Sneakers", href: "#" },
       ],
       collection: [
         { name: "Everything", href: "#" },
@@ -27,25 +27,24 @@ const navigation = {
         { name: "Sale", href: "#" },
       ],
       categories: [
-        { name: "Basic Tees", href: "#" },
-        { name: "Artwork Tees", href: "#" },
-        { name: "Bottoms", href: "#" },
-        { name: "Underwear", href: "#" },
-        { name: "Accessories", href: "#" },
+        { name: "Unisex", href: "#" },
+        { name: "Men", href: "#" },
+        // { name: "Bottoms", href: "#" },
+        { name: "Women", href: "#" },
+        // { name: "Accessories", href: "#" },
       ],
       brands: [
-        { name: "Full Nelson", href: "#" },
-        { name: "My Way", href: "#" },
-        { name: "Re-Arranged", href: "#" },
-        { name: "Counterfeit", href: "#" },
-        { name: "Significant Other", href: "#" },
+        { name: "Polo", href: "#" },
+        { name: "Nike", href: "#" },
+        { name: "Victoria Secret", href: "#" },
+        { name: "Adidas", href: "#" },
+        { name: "others", href: "#" },
       ],
     },
     {
-      name: "Men",
+      name: "Accessories",
       featured: [
         { name: "Casual", href: "#" },
-        { name: "Boxers", href: "#" },
         { name: "Outdoor", href: "#" },
       ],
       collection: [
@@ -71,8 +70,8 @@ const navigation = {
     },
   ],
   pages: [
-    { name: "Company", href: "#" },
-    { name: "Stores", href: "#" },
+    { name: "Others", href: "/products" },
+    // { name: "Stores", href: "#" },
   ],
 };
 
@@ -322,10 +321,10 @@ export default function Topbar() {
       <header className="relative">
         <nav aria-label="Top">
           {/* Top navigation */}
-          <div className="bg-gray-900">
+          <div className="bg-mainBrown">
             <div className="max-w-7xl mx-auto h-10 px-4 flex items-center justify-between sm:px-6 lg:px-8">
               {/* Currency selector */}
-              <form className="hidden lg:block lg:flex-1">
+              {/* <form className="hidden lg:block lg:flex-1">
                 <div className="flex">
                   <label htmlFor="desktop-currency" className="sr-only">
                     Currency
@@ -359,19 +358,19 @@ export default function Topbar() {
                     </div>
                   </div>
                 </div>
-              </form>
+              </form> */}
 
-              <p className="flex-1 text-center text-sm font-medium text-white lg:flex-none">
+              <p className="flex-1 text-center text-sm mx-auto font-medium text-white lg:flex-none">
                 Get free delivery on orders over $100
               </p>
 
               <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                <a
+                {/* <a
                   href="#"
                   className="text-sm font-medium text-white hover:text-gray-100"
                 >
                   Create an account
-                </a>
+                </a> */}
                 <span className="h-6 w-px bg-gray-600" aria-hidden="true" />
                 <a
                   href="#"
