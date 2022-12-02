@@ -116,29 +116,30 @@ export const navigation: Navigation = {
 };
 export const categories: Category[] = [
   {
-    name: "Men",
-    href: "#",
+    name: "clothings",
+    href: "/products",
     imageSrc: require("../assets/images/man.jpg"),
   },
-  {
-    name: "Women",
-    href: "#",
-    imageSrc: require("../assets/images/woman.jpg"),
-  },
-  {
-    name: "Kids",
-    href: "#",
-    imageSrc: require("../assets/images/kid.jpg"),
-  },
-  {
-    name: "Shoes",
-    href: "#",
-    imageSrc: require("../assets/images/shoe.jpg"),
-  },
+  // {
+  //   name: "Women",
+  //   href: "#",
+  //   imageSrc: require("../assets/images/woman.jpg"),
+  // },
+  // {
+  //   name: "Kids",
+  //   href: "#",
+  //   imageSrc: require("../assets/images/kid.jpg"),
+  // },
+
   {
     name: "Accessories",
-    href: "#",
+    href: "/products",
     imageSrc: require("../assets/images/accessory.jpg"),
+  },
+  {
+    name: "Others",
+    href: "/products",
+    imageSrc: require("../assets/images/shoe.jpg"),
   },
 ];
 export const collections: Collections[] = [

@@ -16,22 +16,22 @@ const CategorySection: React.FC = () => {
             Shop by Category
           </h2>
           <a
-            href="#"
+            href="/products"
             className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block"
           >
-            Browse all categories<span aria-hidden="true"> &rarr;</span>
+            Browse all products<span aria-hidden="true"> &rarr;</span>
           </a>
         </div>
 
         <div className="mt-4 flow-root">
           <div className="-my-2">
             <div className="box-content py-2 relative h-80 overflow-x-auto xl:overflow-visible">
-              <div className="absolute min-w-screen-xl px-4 flex space-x-8 sm:px-6 lg:px-8 xl:relative xl:px-0 xl:space-x-0 xl:grid xl:grid-cols-5 xl:gap-x-8">
+              <div className="absolute min-w-screen-xl px-4 flex space-x-8 sm:px-6 md:relative md:px-0 md:space-x-0 md:grid md:grid-cols-3 md:gap-x-8">
                 {categories.map((category) => (
                   <a
                     key={category.name}
                     href={category.href}
-                    className="relative w-56 h-80 rounded-lg p-6 flex flex-col overflow-hidden hover:opacity-75 xl:w-auto"
+                    className="relative w-56 h-80 rounded-lg p-6 flex flex-col overflow-hidden hover:opacity-75 md:w-auto"
                   >
                     <span aria-hidden="true" className="absolute inset-0">
                       <img

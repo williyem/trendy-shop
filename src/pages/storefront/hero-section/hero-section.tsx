@@ -76,7 +76,7 @@ const HeroSection: React.FC = () => {
                           )
                         }
                       >
-                        {category.name}
+                        {category.name}111
                       </Tab>
                     ))}
                   </Tab.List>
