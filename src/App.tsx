@@ -13,6 +13,7 @@ import AdminWrapper from "./layout/admin-wrapper/admin-wrapper";
 import AdminDashboardComponent from "./pages/admin/admin-dashboard/admin-dashboard";
 import AdminOrdersComponent from "./pages/admin/admin-orders/admin-orders";
 import AdminProductsComponent from "./pages/admin/admin-products/admin-products";
+import Login from "./pages/login/login";
 
 function App() {
   return (
@@ -36,6 +37,9 @@ function App() {
             <Route path="orders" element={<AdminOrdersComponent />} />
             <Route path="products" element={<AdminProductsComponent />} />
           </Route>
+        </Routes>
+        <Routes>
+          <Route path="/login" element={<Login />} />
         </Routes>
       </Router>
     </>
