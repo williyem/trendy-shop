@@ -46,10 +46,7 @@ export default function Checkout() {
               </dd>
             </dl>
 
-            <ul
-              role="list"
-              className="text-sm font-medium divide-y divide-white divide-opacity-10"
-            >
+            <ul className="text-sm font-medium divide-y divide-white divide-opacity-10">
               {products.map((product) => (
                 <li
                   key={product.id}

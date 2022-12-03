@@ -1,10 +1,8 @@
-import { Fragment, useState } from "react";
-import { Dialog, RadioGroup, Transition } from "@headlessui/react";
-import { XIcon } from "@heroicons/react/outline";
+import { useState } from "react";
+import { RadioGroup } from "@headlessui/react";
 import { StarIcon } from "@heroicons/react/solid";
 import { classNames } from "./../../helpers/ui-data";
 import ModalOverlay from "../modal-overlay";
-import CloseButton from "./close-button";
 
 const product = {
   name: "Zip Tote Basket",

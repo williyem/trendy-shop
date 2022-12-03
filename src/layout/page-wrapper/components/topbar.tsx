@@ -2,13 +2,8 @@ import { classNames, currencies } from "../../../helpers/ui-data";
 
 import { Fragment, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
-import {
-  MenuIcon,
-  SearchIcon,
-  ShoppingCartIcon,
-  UserIcon,
-  XIcon,
-} from "@heroicons/react/outline";
+import { MenuIcon, ShoppingCartIcon, XIcon } from "@heroicons/react/outline";
+import TopNotificationBar from "./TopNotificationBar";
 
 // const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']
 const navigation = {
@@ -76,6 +71,7 @@ const navigation = {
 };
 
 export default function Topbar() {
+  const [showTopNotificationBar, setShowTopNotificationBar] = useState(true);
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -158,7 +154,6 @@ export default function Topbar() {
                                 Featured
                               </p>
                               <ul
-                                role="list"
                                 aria-labelledby={`mobile-featured-heading-${categoryIdx}`}
                                 className="mt-6 space-y-6"
                               >
@@ -182,7 +177,6 @@ export default function Topbar() {
                                 Categories
                               </p>
                               <ul
-                                role="list"
                                 aria-labelledby="mobile-categories-heading"
                                 className="mt-6 space-y-6"
                               >
@@ -207,11 +201,7 @@ export default function Topbar() {
                               >
                                 Collection
                               </p>
-                              <ul
-                                role="list"
-                                aria-labelledby="mobile-collection-heading"
-                                className="mt-6 space-y-6"
-                              >
+                              <ul className="mt-6 space-y-6">
                                 {category.collection.map((item) => (
                                   <li key={item.name} className="flex">
                                     <a
@@ -226,14 +216,10 @@ export default function Topbar() {
                             </div>
 
                             <div>
-                              <p
-                                id="mobile-brand-heading"
-                                className="font-medium text-gray-900"
-                              >
+                              <p className="font-medium text-gray-900">
                                 Brands
                               </p>
                               <ul
-                                role="list"
                                 aria-labelledby="mobile-brand-heading"
                                 className="mt-6 space-y-6"
                               >
@@ -271,20 +257,14 @@ export default function Topbar() {
 
                 <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                   <div className="flow-root">
-                    <a
-                      href="#"
-                      className="-m-2 p-2 block font-medium text-gray-900"
-                    >
+                    <span className="-m-2 p-2 block font-medium text-gray-900">
                       Create an account
-                    </a>
+                    </span>
                   </div>
                   <div className="flow-root">
-                    <a
-                      href="#"
-                      className="-m-2 p-2 block font-medium text-gray-900"
-                    >
+                    <span className="-m-2 p-2 block font-medium text-gray-900">
                       Sign in
-                    </a>
+                    </span>
                   </div>
                 </div>
 
@@ -333,83 +313,27 @@ export default function Topbar() {
 
         <header className="relative">
           <nav aria-label="Top">
-            {/* Top navigation */}
-            <div className="bg-mainBrown">
-              <div className="max-w-7xl mx-auto h-10 px-4 flex items-center justify-between sm:px-6 lg:px-8">
-                {/* Currency selector */}
-                {/* <form className="hidden lg:block lg:flex-1">
-                <div className="flex">
-                  <label htmlFor="desktop-currency" className="sr-only">
-                    Currency
-                  </label>
-                  <div className="-ml-2 group relative bg-gray-900 border-transparent rounded-md focus-within:ring-2 focus-within:ring-white">
-                    <select
-                      id="desktop-currency"
-                      name="currency"
-                      className="bg-none bg-gray-900 border-transparent rounded-md py-0.5 pl-2 pr-5 flex items-center text-sm font-medium text-white group-hover:text-gray-100 focus:outline-none focus:ring-0 focus:border-transparent"
-                    >
-                      {currencies.map((currency) => (
-                        <option key={currency}>{currency}</option>
-                      ))}
-                    </select>
-                    <div className="absolute right-0 inset-y-0 flex items-center pointer-events-none">
-                      <svg
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 20 20"
-                        className="w-5 h-5 text-gray-300"
-                      >
-                        <path
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="1.5"
-                          d="M6 8l4 4 4-4"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </form> */}
-
-                <p className="flex-1 text-center text-sm mx-auto font-medium text-white lg:flex-none">
-                  Get free delivery on orders over $100
-                </p>
-
-                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  {/* <a
-                  href="#"
-                  className="text-sm font-medium text-white hover:text-gray-100"
-                >
-                  Create an account
-                </a> */}
-                  <span className="h-6 w-px bg-gray-600" aria-hidden="true" />
-                  <a
-                    href="#"
-                    className="text-sm font-medium text-white hover:text-gray-100"
-                  >
-                    Sign in
-                  </a>
-                </div>
-              </div>
-            </div>
+            {showTopNotificationBar && (
+              <TopNotificationBar
+                setShowTopNotificationBar={setShowTopNotificationBar}
+              />
+            )}
 
             {/* Secondary navigation */}
             <div className="bg-transparent">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="border-b border-gray-200">
-                  <div className="h-16 flex items-center justify-between">
+                  <div className="h-10 flex items-center justify-between">
                     {/* Logo (lg+) */}
                     <div className="hidden lg:flex lg:items-center">
-                      <a href="#">
+                      <span>
                         <span className="sr-only">Workflow</span>
                         <img
                           className="h-8 w-auto"
                           src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
                           alt=""
                         />
-                      </a>
+                      </span>
                     </div>
 
                     <div className="hidden z-20 h-full lg:flex">
@@ -462,7 +386,6 @@ export default function Topbar() {
                                                     Featured
                                                   </p>
                                                   <ul
-                                                    role="list"
                                                     aria-labelledby={`desktop-featured-heading-${categoryIdx}`}
                                                     className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                                   >
@@ -490,11 +413,7 @@ export default function Topbar() {
                                                   >
                                                     Categories
                                                   </p>
-                                                  <ul
-                                                    role="list"
-                                                    aria-labelledby="desktop-categories-heading"
-                                                    className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
-                                                  >
+                                                  <ul className="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
                                                     {category.categories.map(
                                                       (item) => (
                                                         <li
@@ -521,11 +440,7 @@ export default function Topbar() {
                                                   >
                                                     Collection
                                                   </p>
-                                                  <ul
-                                                    role="list"
-                                                    aria-labelledby="desktop-collection-heading"
-                                                    className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
-                                                  >
+                                                  <ul className="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
                                                     {category.collection.map(
                                                       (item) => (
                                                         <li
@@ -552,7 +467,6 @@ export default function Topbar() {
                                                     Brands
                                                   </p>
                                                   <ul
-                                                    role="list"
                                                     aria-labelledby="desktop-brand-heading"
                                                     className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                                   >
@@ -611,14 +525,14 @@ export default function Topbar() {
                     </div>
 
                     {/* Logo (lg-) */}
-                    <a href="#" className="lg:hidden">
+                    <span className="lg:hidden">
                       <span className="sr-only">Workflow</span>
                       <img
                         src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
                         alt=""
                         className="h-8 w-auto"
                       />
-                    </a>
+                    </span>
 
                     <div className="flex-1 flex items-center justify-end">
                       <div className="flex items-center lg:ml-8">
@@ -628,10 +542,7 @@ export default function Topbar() {
                         />
 
                         <div className="flow-root">
-                          <a
-                            href="#"
-                            className="group -m-2 p-2 flex items-center"
-                          >
+                          <span className="group -m-2 p-2 flex items-center">
                             <ShoppingCartIcon
                               className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
                               aria-hidden="true"
@@ -642,7 +553,7 @@ export default function Topbar() {
                             <span className="sr-only">
                               items in cart, view bag
                             </span>
-                          </a>
+                          </span>
                         </div>
                       </div>
                     </div>
