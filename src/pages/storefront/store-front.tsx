@@ -1,24 +1,21 @@
 import { Fragment, useState } from "react";
-import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
+import { Dialog, Tab, Transition } from "@headlessui/react";
+import { XIcon } from "@heroicons/react/outline";
 
+// import CollectionSection from "../collection-section/collection-section";
+import Slider from "react-slick";
 import {
   classNames,
-  contentSectionData,
   currencies,
   navigation,
   settings,
 } from "../../helpers/ui-data";
 import CategorySection from "./category-section/category-section";
-import ContentSection from "./content-section/content-section";
-import CollectionSection from "./collection-section/collection-section";
-import Slider from "react-slick";
-import HeroSection from "./hero-section/hero-section";
-// import { XMarkIcon } from "@heroicons/react/24/outline";
 const heroImg = require("../../assets/images/hero.jpg");
 const heroImg2 = require("../../assets/images/feature3.jpg");
 const heroImg3 = require("../../assets/images/feature2.jpg");
 
-const StoreFront: React.FC = () => {
+const HeroSection: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   return (
@@ -59,7 +56,7 @@ const StoreFront: React.FC = () => {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <span className="sr-only">Close menu</span>
-                  {/* <XMarkIcon className="h-6 w-6" aria-hidden="true" /> */}
+                  <XIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
               </div>
 
@@ -139,20 +136,14 @@ const StoreFront: React.FC = () => {
 
               <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                 <div className="flow-root">
-                  <a
-                    href="#"
-                    className="-m-2 p-2 block font-medium text-gray-900"
-                  >
+                  <span className="-m-2 p-2 block font-medium text-gray-900">
                     Create an account
-                  </a>
+                  </span>
                 </div>
                 <div className="flow-root">
-                  <a
-                    href="#"
-                    className="-m-2 p-2 block font-medium text-gray-900"
-                  >
+                  <span className="-m-2 p-2 block font-medium text-gray-900">
                     Sign in
-                  </a>
+                  </span>
                 </div>
               </div>
 
@@ -200,23 +191,116 @@ const StoreFront: React.FC = () => {
       </Transition.Root>
 
       {/* Hero section */}
-      <HeroSection />
+      <div className="max-w-full">
+        <Slider {...settings}>
+          <div className="relative bg-gray-900">
+            {/* Decorative image and overlay */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 overflow-hidden"
+            >
+              <img
+                src={heroImg}
+                alt=""
+                className="w-full h-full object-center object-cover"
+              />
+            </div>
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gray-900 opacity-60"
+            />
 
-      <main>
+            {/* Navigation */}
+
+            <div className="relative max-w-3xl mx-auto py-32 px-6 flex flex-col items-center text-center sm:py-64 lg:px-0">
+              <h1 className="text-4xl font-extrabold tracking-tight text-white lg:text-6xl">
+                New arrivals are here
+              </h1>
+              <p className="mt-4 text-xl text-white">
+                The new arrivals have, well, newly arrived. Check out the latest
+                options from our summer small-batch release while they're still
+                in stock.
+              </p>
+              <span className="mt-8 inline-block bg-mainPink border-[2px] border-white py-3 px-16 text-2xl font-medium text-white hover:bg-gray-100 hover:text-mainPink">
+                SHOP
+              </span>
+            </div>
+          </div>
+          <div className="relative bg-gray-900">
+            {/* Decorative image and overlay */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 overflow-hidden"
+            >
+              <img
+                src={heroImg2}
+                alt=""
+                className="w-full h-full object-center object-cover"
+              />
+            </div>
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gray-900 opacity-60"
+            />
+
+            {/* Navigation */}
+
+            <div className="relative max-w-3xl mx-auto py-32 px-6 flex flex-col items-center text-center sm:py-64 lg:px-0">
+              <h1 className="text-4xl font-extrabold tracking-tight text-white lg:text-6xl">
+                New arrivals are here
+              </h1>
+              <p className="mt-4 text-xl text-white">
+                The new arrivals have, well, newly arrived. Check out the latest
+                options from our summer small-batch release while they're still
+                in stock.
+              </p>
+              <span className="mt-8 inline-block bg-mainPink border-[2px] border-white py-3 px-16 text-2xl font-medium text-white hover:bg-gray-100 hover:text-mainPink">
+                SHOP
+              </span>
+            </div>
+          </div>
+          <div className="relative bg-gray-900">
+            {/* Decorative image and overlay */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 overflow-hidden"
+            >
+              <img
+                src={heroImg3}
+                alt=""
+                className="w-full h-full object-center object-cover"
+              />
+            </div>
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gray-900 opacity-60"
+            />
+
+            {/* Navigation */}
+
+            <div className="relative max-w-3xl mx-auto py-32 px-6 flex flex-col items-center text-center sm:py-64 lg:px-0">
+              <h1 className="text-4xl font-extrabold tracking-tight text-white lg:text-6xl">
+                New arrivals are here
+              </h1>
+              <p className="mt-4 text-xl text-white">
+                The new arrivals have, well, newly arrived. Check out the latest
+                options from our summer small-batch release while they're still
+                in stock.
+              </p>
+              <span className="mt-8 inline-block bg-mainPink border-[2px] border-white py-3 px-16 text-2xl font-medium text-white hover:bg-gray-100 hover:text-mainPink">
+                SHOP
+              </span>
+            </div>
+          </div>
+        </Slider>
+      </div>
+
+      <main className="my-4">
         {/* Category section */}
         <CategorySection />
-
-        {/* Featured section */}
-        <ContentSection content={contentSectionData[0]} />
-        {/* Collection section */}
-        <CollectionSection />
-        {/* Featured section */}
-        <div className="pb-8 sm:pb-24 ">
-          <ContentSection content={contentSectionData[1]} />
-        </div>
       </main>
     </div>
   );
 };
 
-export default StoreFront;
+export default HeroSection;
