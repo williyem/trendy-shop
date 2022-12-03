@@ -1,5 +1,6 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { useAppSelector } from "../../redux/hooks";
 // import { XMarkIcon } from "@heroicons/react/24/outline";
 
 const products = [
@@ -31,8 +32,18 @@ const products = [
 ];
 
 export default function Cart() {
-  const [open, setOpen] = useState(false);
+  const openCart = useAppSelector((state) => {
+    console.log(state.cart);
+    return state.cart.openCart;
+  });
 
+  const [open, setOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log("opencart", openCart);
+  }, []);
+
+  console.log("opencart 2", openCart);
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>

@@ -4,10 +4,12 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface ICart {
   cartItems: any[];
+  openCart: boolean;
 }
 
 const initialState: ICart = {
-  cartItems: [],
+  cartItems: [1, 2, 3],
+  openCart: true,
 };
 
 export const cartSlice = createSlice({
@@ -36,9 +38,16 @@ export const cartSlice = createSlice({
       );
       state.cartItems = newCartItems;
     },
+    showCart: (state, { payload }) => {
+      state.openCart = payload;
+    },
+    // hideCart: (state) => {
+    //   state.openCart = false;
+    // },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, showCart } = cartSlice.actions;
+// export const useCart = (state: RootState) => state.cart;
 
 export default cartSlice.reducer;
