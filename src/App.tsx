@@ -5,6 +5,9 @@ import ProductOverview from "./pages/product-overview/product-overview";
 import Products from "./pages/products/products";
 import HeroSection from "./pages/storefront/hero-section/hero-section";
 import OrderHistory from "./pages/order-history/order-history";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (

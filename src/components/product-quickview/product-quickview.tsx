@@ -136,7 +136,7 @@ export default function ProductQuickview() {
                 <div className="mt-6">
                   <button
                     type="submit"
-                    className="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+                    className="w-full bg-mainPink border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-deepPink focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-deepPink"
                   >
                     Add to bag
                   </button>
@@ -145,7 +145,7 @@ export default function ProductQuickview() {
                 <p className="absolute top-4 left-4 text-center sm:static sm:mt-6">
                   <a
                     href={product.href}
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                    className="font-medium text-mainPink hover:text-deepPink"
                   >
                     View full details
                   </a>

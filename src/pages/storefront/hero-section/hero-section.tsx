@@ -224,9 +224,9 @@ const HeroSection: React.FC = () => {
           </p>
           <a
             href="#"
-            className="mt-8 inline-block bg-white border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100"
+            className="mt-8 inline-block bg-secondaryPink border-[2px] border-white py-3 px-16 text-2xl font-medium text-white hover:bg-gray-100 hover:text-mainPink"
           >
-            Shop New Arrivals
+            SHOP
           </a>
         </div>
       </div>

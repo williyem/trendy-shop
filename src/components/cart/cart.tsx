@@ -131,7 +131,7 @@ export default function Cart() {
                                     <div className="flex">
                                       <button
                                         type="button"
-                                        className="font-medium text-indigo-600 hover:text-indigo-500"
+                                        className="font-medium text-mainPink hover:text-deepPink"
                                       >
                                         Remove
                                       </button>
@@ -156,7 +156,7 @@ export default function Cart() {
                       <div className="mt-6">
                         <a
                           href="#"
-                          className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                          className="flex items-center justify-center rounded-md border border-transparent bg-mainPink px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-deepPink"
                         >
                           Checkout
                         </a>
