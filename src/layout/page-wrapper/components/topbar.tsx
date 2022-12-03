@@ -426,7 +426,7 @@ export default function Topbar() {
                                         className={classNames(
                                           open
                                             ? "border-deepPink text-deepPink"
-                                            : "border-transparent text-gray-700 hover:text-gray-800",
+                                            : "border-transparent text-mainBrown hover:text-mainPink",
                                           "relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-medium border-b-2 -mb-px pt-px"
                                         )}
                                       >
@@ -589,7 +589,7 @@ export default function Topbar() {
                             <a
                               key={page.name}
                               href={page.href}
-                              className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                              className="flex items-center text-sm font-medium text-mainBrown hover:text-mainPink"
                             >
                               {page.name}
                             </a>
