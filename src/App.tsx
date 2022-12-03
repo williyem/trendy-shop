@@ -14,6 +14,7 @@ import AdminDashboardComponent from "./pages/admin/admin-dashboard/admin-dashboa
 import AdminOrdersComponent from "./pages/admin/admin-orders/admin-orders";
 import AdminProductsComponent from "./pages/admin/admin-products/admin-products";
 import Login from "./pages/login/login";
+import OrderSuccess from "./pages/OrderSuccess/OrderSuccess";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/products/:categoryName" element={<Products />} />
             <Route path="/product" element={<ProductOverview />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkout/success" element={<OrderSuccess />} />
             <Route path="/history" element={<OrderHistory />} />
           </Route>
         </Routes>
