@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
               <div className="space-y-12 md:space-y-0 md:grid md:grid-cols-2 md:gap-8">
                 <div>
                   <h3 className="text-sm font-medium text-white">Shop</h3>
-                  <ul role="list" className="mt-6 space-y-6">
+                  <ul className="mt-6 space-y-6">
                     {footerNavigation?.shop.map((item) => (
                       <li key={item.name} className="text-sm">
                         <a
@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-white">Company</h3>
-                  <ul role="list" className="mt-6 space-y-6">
+                  <ul className="mt-6 space-y-6">
                     {footerNavigation?.company.map((item) => (
                       <li key={item.name} className="text-sm">
                         <a
@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
               <div className="space-y-12 md:space-y-0 md:grid md:grid-cols-2 md:gap-8">
                 <div>
                   <h3 className="text-sm font-medium text-white">Account</h3>
-                  <ul role="list" className="mt-6 space-y-6">
+                  <ul className="mt-6 space-y-6">
                     {footerNavigation?.account.map((item) => (
                       <li key={item.name} className="text-sm">
                         <a
@@ -61,7 +61,7 @@ const Footer: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-white">Connect</h3>
-                  <ul role="list" className="mt-6 space-y-6">
+                  <ul className="mt-6 space-y-6">
                     {footerNavigation?.connect.map((item) => (
                       <li key={item.name} className="text-sm">
                         <a
