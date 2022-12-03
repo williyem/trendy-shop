@@ -8,6 +8,11 @@ import OrderHistory from "./pages/order-history/order-history";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-toastify/dist/ReactToastify.css";
+import StoreFront from "./pages/storefront/store-front";
+import AdminWrapper from "./layout/admin-wrapper/admin-wrapper";
+import AdminDashboardComponent from "./pages/admin/admin-dashboard/admin-dashboard";
+import AdminOrdersComponent from "./pages/admin/admin-orders/admin-orders";
+import AdminProductsComponent from "./pages/admin/admin-products/admin-products";
 
 function App() {
   return (
@@ -15,11 +20,18 @@ function App() {
       <Router>
         <Routes>
           <Route element={<PageWrapper />}>
-            <Route path="/" element={<HeroSection />} />
+            <Route path="/" element={<StoreFront />} />
             <Route path="/products" element={<Products />} />
             <Route path="/product/:id" element={<ProductOverview />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/history" element={<OrderHistory />} />
+          </Route>
+        </Routes>
+        <Routes>
+          <Route path="/admin" element={<AdminWrapper />}>
+            <Route index element={<AdminDashboardComponent />} />
+            <Route path="orders" element={<AdminOrdersComponent />} />
+            <Route path="products" element={<AdminProductsComponent />} />
           </Route>
         </Routes>
       </Router>
