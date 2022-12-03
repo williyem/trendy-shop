@@ -542,7 +542,10 @@ export default function Topbar() {
                         />
 
                         <div className="flow-root">
-                          <span className="group -m-2 p-2 flex items-center">
+                          <span
+                            className="group -m-2 p-2 flex items-center"
+                            onClick={() => alert("cart")}
+                          >
                             <ShoppingCartIcon
                               className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
                               aria-hidden="true"

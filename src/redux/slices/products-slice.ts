@@ -11,13 +11,6 @@ export interface productState {
   size?: number;
 }
 
-export interface productState {
-  total: number;
-  price: number;
-  discount?: number;
-  items: productState[];
-}
-
 const initialState = {
   products: [],
   selectedProduct: {},
@@ -29,6 +22,6 @@ export const productSlice = createSlice({
   extraReducers: {},
 });
 
-export const {} = productSlice.actions;
-export const useProduct = (state: RootState) => state.products;
+// export const {} = productSlice.actions;
+// export const useProduct = (state: RootState) => state.products;
 export default productSlice.reducer;
