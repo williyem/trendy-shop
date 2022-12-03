@@ -20,15 +20,12 @@ function App() {
       <Router>
         <Routes>
           <Route element={<PageWrapper />}>
-<<<<<<< HEAD
             <Route path="/" element={<StoreFront />} />
             <Route path="/products" element={<Products />} />
             <Route path="/product/:id" element={<ProductOverview />} />
-=======
             <Route path="/" element={<HeroSection />} />
             <Route path="/products/:categoryName" element={<Products />} />
             <Route path="/product" element={<ProductOverview />} />
->>>>>>> 00e5f526bc0e4d42f2659cb7a0ae0ac8dcc5064d
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/history" element={<OrderHistory />} />
           </Route>
