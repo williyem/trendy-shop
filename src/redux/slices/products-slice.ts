@@ -30,5 +30,5 @@ export const productSlice = createSlice({
 });
 
 export const {} = productSlice.actions;
-export const useProduct = (state: RootState) => state.product;
+export const useProduct = (state: RootState) => state.products;
 export default productSlice.reducer;
