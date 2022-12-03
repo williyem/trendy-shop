@@ -4,6 +4,7 @@ import { Fragment, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { MenuIcon, ShoppingCartIcon, XIcon } from "@heroicons/react/outline";
 import TopNotificationBar from "./TopNotificationBar";
+import useCart from "../../../hooks/useCart";
 
 // const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']
 const navigation = {
@@ -73,6 +74,8 @@ const navigation = {
 export default function Topbar() {
   const [showTopNotificationBar, setShowTopNotificationBar] = useState(true);
   const [open, setOpen] = useState<boolean>(false);
+
+  const { cartLength } = useCart();
 
   return (
     <>
@@ -551,7 +554,7 @@ export default function Topbar() {
                               aria-hidden="true"
                             />
                             <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                              0
+                              {cartLength} 30
                             </span>
                             <span className="sr-only">
                               items in cart, view bag

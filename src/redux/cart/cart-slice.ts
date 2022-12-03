@@ -1,19 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../store";
 
 interface ICart {
   cartItems: any[];
-  total: number;
-  price: number;
   openCart: boolean;
 }
 
 const initialState: ICart = {
-  cartItems: [],
-  total: 0,
-  price: 0,
+  cartItems: [1, 2, 3],
   openCart: true,
 };
 
