@@ -17,7 +17,7 @@ const CategorySection: React.FC = () => {
           </h2>
           <a
             href="/products"
-            className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block"
+            className="hidden text-sm font-semibold text-mainPink hover:text-deepPink sm:block"
           >
             Browse all products<span aria-hidden="true"> &rarr;</span>
           </a>
@@ -55,12 +55,9 @@ const CategorySection: React.FC = () => {
         </div>
 
         <div className="mt-6 px-4 sm:hidden">
-          <a
-            href="#"
-            className="block text-sm font-semibold text-indigo-600 hover:text-indigo-500"
-          >
+          <span className="block text-sm font-semibold text-mainPink hover:text-deepPink">
             Browse all categories<span aria-hidden="true"> &rarr;</span>
-          </a>
+          </span>
         </div>
       </section>
     </>

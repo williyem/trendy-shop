@@ -1,18 +1,19 @@
 import { Fragment, useState } from "react";
 import { Dialog, Tab, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
+
+// import CollectionSection from "../collection-section/collection-section";
+import Slider from "react-slick";
 import {
   classNames,
   currencies,
   navigation,
   settings,
-} from "../../../helpers/ui-data";
-import CategorySection from "../category-section/category-section";
-// import CollectionSection from "../collection-section/collection-section";
-import Slider from "react-slick";
-const heroImg = require("../../../assets/images/hero.jpg");
-const heroImg2 = require("../../../assets/images/feature3.jpg");
-const heroImg3 = require("../../../assets/images/feature2.jpg");
+} from "../../helpers/ui-data";
+import CategorySection from "./category-section/category-section";
+const heroImg = require("../../assets/images/hero.jpg");
+const heroImg2 = require("../../assets/images/feature3.jpg");
+const heroImg3 = require("../../assets/images/feature2.jpg");
 
 const HeroSection: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -253,7 +254,7 @@ const HeroSection: React.FC = () => {
                 options from our summer small-batch release while they're still
                 in stock.
               </p>
-              <span className="mt-8 inline-block bg-secondaryPink border-[2px] border-white py-3 px-16 text-2xl font-medium text-white hover:bg-gray-100 hover:text-mainPink">
+              <span className="mt-8 inline-block bg-mainPink border-[2px] border-white py-3 px-16 text-2xl font-medium text-white hover:bg-gray-100 hover:text-mainPink">
                 SHOP
               </span>
             </div>
@@ -286,7 +287,7 @@ const HeroSection: React.FC = () => {
                 options from our summer small-batch release while they're still
                 in stock.
               </p>
-              <span className="mt-8 inline-block bg-secondaryPink border-[2px] border-white py-3 px-16 text-2xl font-medium text-white hover:bg-gray-100 hover:text-mainPink">
+              <span className="mt-8 inline-block bg-mainPink border-[2px] border-white py-3 px-16 text-2xl font-medium text-white hover:bg-gray-100 hover:text-mainPink">
                 SHOP
               </span>
             </div>
