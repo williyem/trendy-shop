@@ -55,12 +55,9 @@ const CategorySection: React.FC = () => {
         </div>
 
         <div className="mt-6 px-4 sm:hidden">
-          <a
-            href="#"
-            className="block text-sm font-semibold text-mainPink hover:text-deepPink"
-          >
+          <span className="block text-sm font-semibold text-mainPink hover:text-deepPink">
             Browse all categories<span aria-hidden="true"> &rarr;</span>
-          </a>
+          </span>
         </div>
       </section>
     </>

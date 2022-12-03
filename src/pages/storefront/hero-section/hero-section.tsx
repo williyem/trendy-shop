@@ -1,18 +1,14 @@
 import { Fragment, useState } from "react";
-import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
+import { Dialog, Tab, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import {
-  categories,
   classNames,
-  collections,
-  contentSectionData,
   currencies,
   navigation,
   settings,
 } from "../../../helpers/ui-data";
 import CategorySection from "../category-section/category-section";
-import ContentSection from "../content-section/content-section";
-import CollectionSection from "../collection-section/collection-section";
+// import CollectionSection from "../collection-section/collection-section";
 import Slider from "react-slick";
 const heroImg = require("../../../assets/images/hero.jpg");
 const heroImg2 = require("../../../assets/images/feature3.jpg");
@@ -139,20 +135,14 @@ const HeroSection: React.FC = () => {
 
               <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                 <div className="flow-root">
-                  <a
-                    href="#"
-                    className="-m-2 p-2 block font-medium text-gray-900"
-                  >
+                  <span className="-m-2 p-2 block font-medium text-gray-900">
                     Create an account
-                  </a>
+                  </span>
                 </div>
                 <div className="flow-root">
-                  <a
-                    href="#"
-                    className="-m-2 p-2 block font-medium text-gray-900"
-                  >
+                  <span className="-m-2 p-2 block font-medium text-gray-900">
                     Sign in
-                  </a>
+                  </span>
                 </div>
               </div>
 
@@ -230,12 +220,9 @@ const HeroSection: React.FC = () => {
                 options from our summer small-batch release while they're still
                 in stock.
               </p>
-              <a
-                href="#"
-                className="mt-8 inline-block bg-secondaryPink border-[2px] border-white py-3 px-16 text-2xl font-medium text-white hover:bg-gray-100 hover:text-mainPink"
-              >
+              <span className="mt-8 inline-block bg-mainPink border-[2px] border-white py-3 px-16 text-2xl font-medium text-white hover:bg-gray-100 hover:text-mainPink">
                 SHOP
-              </a>
+              </span>
             </div>
           </div>
           <div className="relative bg-gray-900">
@@ -266,12 +253,9 @@ const HeroSection: React.FC = () => {
                 options from our summer small-batch release while they're still
                 in stock.
               </p>
-              <a
-                href="#"
-                className="mt-8 inline-block bg-secondaryPink border-[2px] border-white py-3 px-16 text-2xl font-medium text-white hover:bg-gray-100 hover:text-mainPink"
-              >
+              <span className="mt-8 inline-block bg-secondaryPink border-[2px] border-white py-3 px-16 text-2xl font-medium text-white hover:bg-gray-100 hover:text-mainPink">
                 SHOP
-              </a>
+              </span>
             </div>
           </div>
           <div className="relative bg-gray-900">
@@ -302,29 +286,17 @@ const HeroSection: React.FC = () => {
                 options from our summer small-batch release while they're still
                 in stock.
               </p>
-              <a
-                href="#"
-                className="mt-8 inline-block bg-secondaryPink border-[2px] border-white py-3 px-16 text-2xl font-medium text-white hover:bg-gray-100 hover:text-mainPink"
-              >
+              <span className="mt-8 inline-block bg-secondaryPink border-[2px] border-white py-3 px-16 text-2xl font-medium text-white hover:bg-gray-100 hover:text-mainPink">
                 SHOP
-              </a>
+              </span>
             </div>
           </div>
         </Slider>
       </div>
 
-      <main>
+      <main className="my-4">
         {/* Category section */}
         <CategorySection />
-
-        {/* Featured section */}
-        <ContentSection content={contentSectionData[0]} />
-        {/* Collection section */}
-        <CollectionSection />
-        {/* Featured section */}
-        <div className="pb-8 sm:pb-24 ">
-          <ContentSection content={contentSectionData[1]} />
-        </div>
       </main>
     </div>
   );
