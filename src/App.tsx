@@ -15,11 +15,13 @@ import AdminOrdersComponent from "./pages/admin/admin-orders/admin-orders";
 import AdminProductsComponent from "./pages/admin/admin-products/admin-products";
 import Login from "./pages/login/login";
 import OrderSuccess from "./pages/OrderSuccess/OrderSuccess";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <>
       <Router>
+        <ToastContainer />
         <Routes>
           <Route element={<PageWrapper />}>
             <Route path="/" element={<StoreFront />} />

@@ -1,3 +1,7 @@
+import { useEffect } from "react";
+import { successToast } from "../../components/toastify/toastify";
+import { useAppDispatch } from "../../redux/hooks";
+import { getProducts } from "../../redux/slices/products-slice";
 const products = [
   {
     id: 1,
@@ -63,6 +67,12 @@ const products = [
 ];
 
 const Products: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl py-6 px-4 sm:py-4 sm:px-6 lg:max-w-7xl lg:px-8">
