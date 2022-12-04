@@ -56,7 +56,7 @@ export const productSlice = createSlice({
     builder.addCase(getProducts.fulfilled, (state, { payload }) => {
       console.log("payload", payload);
       if (!!payload && payload?.data?.status === 200) {
-        state.products = payload.data.data;
+        state.products = payload?.data;
       } else {
         errorToast(errorMessage);
       }
@@ -68,19 +68,19 @@ export const productSlice = createSlice({
     });
 
     //get product by id
-    builder.addCase(getProducts.pending, (state) => {
+    builder.addCase(getProductById.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(getProducts.fulfilled, (state, { payload }) => {
+    builder.addCase(getProductById.fulfilled, (state, { payload }) => {
       console.log("payload", payload);
-      if (!!payload && payload?.data?.status === 200) {
-        state.selectedProduct = payload.data.data;
+      if (!!payload && payload?.status === 200) {
+        state.selectedProduct = payload.data;
       } else {
         errorToast(errorMessage);
       }
       state.loading = false;
     });
-    builder.addCase(getProducts.rejected, (state) => {
+    builder.addCase(getProductById.rejected, (state) => {
       state.loading = false;
       errorToast(errorMessage);
     });
