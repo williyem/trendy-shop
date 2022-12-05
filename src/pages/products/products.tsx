@@ -69,9 +69,9 @@ const products = [
 const Products: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(getProducts());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getProducts());
+  // }, []);
 
   return (
     <div className="bg-white">

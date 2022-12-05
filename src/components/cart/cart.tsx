@@ -33,7 +33,6 @@ const products = [
 
 export default function Cart() {
   const [open, setOpen] = useState<boolean>(false);
-
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
