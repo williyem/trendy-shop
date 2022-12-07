@@ -14,6 +14,7 @@ export interface Inputs {
   price: number;
   description?: string;
   photos?: [string];
+  inStock?: number;
   category: PRODUCT_CATEGORY;
 }
 

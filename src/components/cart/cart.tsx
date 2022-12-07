@@ -104,7 +104,32 @@ export default function Cart({ open, setOpen }: props) {
                                   </div>
                                   <div className="flex flex-1 items-end justify-between text-sm">
                                     <p className="text-gray-500">
-                                      Qty {product.quantity}
+                                      Qty{" "}
+                                      <select
+                                        value={product?.quantity}
+                                        onChange={(e) => {
+                                          console.log("111", e.target.value);
+                                        }}
+                                      >
+                                        {Array.from(
+                                          { length: product?.inStock },
+                                          (_, i) => i + 1
+                                        ).map((num: any) => {
+                                          return (
+                                            <>
+                                              <option
+                                                value={num}
+                                                key={num}
+                                                selected={
+                                                  product?.quantity === num
+                                                }
+                                              >
+                                                {num}
+                                              </option>
+                                            </>
+                                          );
+                                        })}
+                                      </select>
                                     </p>
 
                                     <div className="flex">

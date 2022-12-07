@@ -6,6 +6,7 @@ const products = [
     name: "Leather Long Wallet",
     category: "CLOTHING",
     price: "75",
+    inStock: 5,
     photos: [
       "https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg",
     ],
@@ -16,6 +17,7 @@ const products = [
     name: "Throwback Hip Bag",
     category: "OTHERS",
     price: "90.00",
+    inStock: 5,
     photos: [
       "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
     ],
@@ -27,6 +29,7 @@ const products = [
     name: "Medium Stuff Satchel",
     category: "ACCESSORY",
     price: "32.00",
+    inStock: 5,
     photos: [
       "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
     ],
@@ -38,6 +41,7 @@ const products = [
     name: "Leather Long Wallet",
     category: "CLOTHING",
     price: "75",
+    inStock: 5,
     photos: [
       "https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg",
     ],
@@ -49,6 +53,7 @@ const products = [
     name: "Leather Long Wallet",
     category: "CLOTHING",
     price: "75",
+    inStock: 5,
     photos: [
       "https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg",
     ],
@@ -59,6 +64,7 @@ const products = [
     name: "Leather Long Wallet",
     category: "CLOTHING",
     price: "75",
+    inStock: 5,
     photos: [
       "https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg",
     ],
@@ -69,6 +75,7 @@ const products = [
     name: "Throwback Hip Bag",
     category: "OTHERS",
     price: "90.00",
+    inStock: 5,
     photos: [
       "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
     ],
@@ -80,6 +87,7 @@ const products = [
     name: "Medium Stuff Satchel",
     category: "ACCESSORY",
     price: "32.00",
+    inStock: 5,
     photos: [
       "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
     ],
