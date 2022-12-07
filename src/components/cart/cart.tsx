@@ -2,7 +2,7 @@ import { Fragment, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import useCart from "../../hooks/useCart";
-import { removeFromCart } from "../../redux/slices/cart-slice";
+import { removeFromCart, setCart } from "../../redux/slices/cart-slice";
 
 interface props {
   open: boolean;
@@ -103,12 +103,32 @@ export default function Cart({ open, setOpen }: props) {
                                     </p>
                                   </div>
                                   <div className="flex flex-1 items-end justify-between text-sm">
-                                    <p className="text-gray-500">
+                                    <p className="text-gray-700 ">
                                       Qty{" "}
                                       <select
                                         value={product?.quantity}
+                                        className=" max-w-full rounded-sm border border-gray-400  px-2 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-mainPink focus:border-mainPink sm:text-sm"
                                         onChange={(e) => {
-                                          console.log("111", e.target.value);
+                                          const cartItemsCopy = [...cartItems];
+
+                                          const newProduct = {
+                                            ...product,
+                                            quantity: parseFloat(
+                                              e.target.value
+                                            ),
+                                          };
+
+                                          const indexOfProduct =
+                                            cartItems.findIndex(
+                                              (item) => item.id === product.id
+                                            );
+
+                                          cartItemsCopy.splice(
+                                            indexOfProduct,
+                                            1,
+                                            newProduct
+                                          );
+                                          dispatch(setCart(cartItemsCopy));
                                         }}
                                       >
                                         {Array.from(
@@ -169,7 +189,7 @@ export default function Cart({ open, setOpen }: props) {
                         <p>
                           <button
                             type="button"
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                            className="font-medium text-indigo-600 hover:text-mainPink"
                             onClick={() => setOpen(false)}
                           >
                             Continue Shopping

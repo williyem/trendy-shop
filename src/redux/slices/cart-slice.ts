@@ -35,6 +35,10 @@ export const cartSlice = createSlice({
     //   });
     //   state.total = total?.toFixed(2);
     // },
+    setCart: (state, { payload }: PayloadAction<any>) => {
+      state.cartItems = payload;
+      state.total = calculateTotal(state);
+    },
     addToCart: (state, { payload }: PayloadAction<any>) => {
       const isAlreadyAdded = state.cartItems.find(
         (item) => payload.id === item.id
@@ -60,6 +64,7 @@ export const cartSlice = createSlice({
         (item) => item.id !== payload.id
       );
       state.cartItems = newCartItems;
+      state.total = calculateTotal(state);
     },
     showCart: (state, { payload }) => {
       state.openCart = payload;
@@ -67,6 +72,7 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, showCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, showCart, setCart } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;
