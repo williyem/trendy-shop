@@ -5,6 +5,7 @@ import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { MenuIcon, ShoppingCartIcon, XIcon } from "@heroicons/react/outline";
 import TopNotificationBar from "./TopNotificationBar";
 import useCart from "../../../hooks/useCart";
+import Cart from "../../../components/cart/cart";
 
 // const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']
 const navigation = {
@@ -74,11 +75,13 @@ const navigation = {
 export default function Topbar() {
   const [showTopNotificationBar, setShowTopNotificationBar] = useState(true);
   const [open, setOpen] = useState<boolean>(false);
+  const [showCart, setShowCart] = useState<boolean>(false);
 
   const { cartLength } = useCart();
 
   return (
     <>
+      <Cart open={showCart} setOpen={setShowCart} />
       <div className="bg-transparent z-50 w-full top-0">
         {/* Mobile menu */}
         <Transition.Root show={open} as={Fragment}>
@@ -265,9 +268,9 @@ export default function Topbar() {
                     </span>
                   </div>
                   <div className="flow-root">
-                    <span className="-m-2 p-2 block font-medium text-gray-900">
+                    <a className="-m-2 p-2 block font-medium text-gray-900">
                       Sign in
-                    </span>
+                    </a>
                   </div>
                 </div>
 
@@ -546,15 +549,15 @@ export default function Topbar() {
 
                         <div className="flow-root">
                           <span
-                            className="group -m-2 p-2 flex items-center"
-                            onClick={() => alert("cart")}
+                            className="group -m-2 p-2 flex items-center cursor-pointer"
+                            onClick={() => setShowCart(true)}
                           >
                             <ShoppingCartIcon
-                              className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
+                              className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-deepPink transition duration-300"
                               aria-hidden="true"
                             />
                             <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                              {cartLength} 30
+                              {cartLength}
                             </span>
                             <span className="sr-only">
                               items in cart, view bag

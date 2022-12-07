@@ -8,7 +8,6 @@ import Topbar from "./components/topbar";
 const PageWrapper: React.FC = () => {
   return (
     <>
-      <Cart />
       <Topbar />
       <Outlet />
       <Footer />

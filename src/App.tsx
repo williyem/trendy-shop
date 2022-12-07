@@ -26,7 +26,7 @@ function App() {
           <Route element={<PageWrapper />}>
             <Route path="/" element={<StoreFront />} />
             <Route path="/products" element={<Products />} />
-            <Route path="/product/:id" element={<ProductOverview />} />
+            {/* <Route path="/product/:id" element={<ProductOverview />} /> */}
             <Route path="/" element={<HeroSection />} />
             <Route path="/products/:categoryName" element={<Products />} />
             <Route path="/product" element={<ProductOverview />} />

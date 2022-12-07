@@ -75,6 +75,9 @@ export const productSlice = createSlice({
     setCrudLoading: (state, { payload }) => {
       state.crudLoading = payload;
     },
+    setProduct: (state, { payload }) => {
+      state.selectedProduct = payload;
+    },
   },
   extraReducers: (builder) => {
     //get all products
@@ -132,6 +135,7 @@ export const productSlice = createSlice({
   },
 });
 
-export const { assignUrls, clearUrls, setCrudLoading } = productSlice.actions;
+export const { assignUrls, clearUrls, setCrudLoading, setProduct } =
+  productSlice.actions;
 // export const useProduct = (state: RootState) => state.products;
 export default productSlice.reducer;
