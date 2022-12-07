@@ -268,9 +268,9 @@ export default function Topbar() {
                     </span>
                   </div>
                   <div className="flow-root">
-                    <a className="-m-2 p-2 block font-medium text-gray-900">
+                    <span className="-m-2 p-2 block font-medium text-gray-900">
                       Sign in
-                    </a>
+                    </span>
                   </div>
                 </div>
 

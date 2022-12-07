@@ -12,7 +12,29 @@ const products = [
     description: "Hand stitched, orange leather long wallet.",
   },
   {
-    id: 1,
+    id: 2,
+    name: "Throwback Hip Bag",
+    category: "OTHERS",
+    price: "90.00",
+    photos: [
+      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
+    ],
+    description:
+      "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
+  },
+  {
+    id: 3,
+    name: "Medium Stuff Satchel",
+    category: "ACCESSORY",
+    price: "32.00",
+    photos: [
+      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+    ],
+    description:
+      "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
+  },
+  {
+    id: 4,
     name: "Leather Long Wallet",
     category: "CLOTHING",
     price: "75",
@@ -21,19 +43,9 @@ const products = [
     ],
     description: "Hand stitched, orange leather long wallet.",
   },
-  {
-    id: 1,
-    name: "Leather Long Wallet",
-    category: "CLOTHING",
 
-    price: "75",
-    photos: [
-      "https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg",
-    ],
-    description: "Hand stitched, orange leather long wallet.",
-  },
   {
-    id: 1,
+    id: 5,
     name: "Leather Long Wallet",
     category: "CLOTHING",
     price: "75",
@@ -43,7 +55,7 @@ const products = [
     description: "Hand stitched, orange leather long wallet.",
   },
   {
-    id: 1,
+    id: 6,
     name: "Leather Long Wallet",
     category: "CLOTHING",
     price: "75",
@@ -53,14 +65,26 @@ const products = [
     description: "Hand stitched, orange leather long wallet.",
   },
   {
-    id: 1,
-    name: "Leather Long Wallet",
-    category: "CLOTHING",
-    price: "75",
+    id: 7,
+    name: "Throwback Hip Bag",
+    category: "OTHERS",
+    price: "90.00",
     photos: [
-      "https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg",
+      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
     ],
-    description: "Hand stitched, orange leather long wallet.",
+    description:
+      "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
+  },
+  {
+    id: 8,
+    name: "Medium Stuff Satchel",
+    category: "ACCESSORY",
+    price: "32.00",
+    photos: [
+      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+    ],
+    description:
+      "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
   },
   // More products...
 ];

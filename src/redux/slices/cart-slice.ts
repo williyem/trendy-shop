@@ -1,37 +1,72 @@
-// import { createSlice } from "@reduxjs/toolkit";
-// import { RootState } from "../store";
+import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
-export interface productState {}
+interface ICart {
+  cartItems: any[];
+  openCart: boolean;
+  length: number;
+  total: number;
+}
 
-// export interface cartState {
-//   total: number;
-//   price: number;
-//   discount?: number;
-//   items: productState[];
-//   openCart: boolean;
-// }
+const initialState: ICart = {
+  cartItems: [],
+  openCart: false,
+  length: 0,
+  total: 0,
+};
 
-// const initialState: cartState = {
-//   total: 0,
-//   price: 0,
-//   discount: 0,
-//   items: [],
-//   openCart: true,
-// };
-// export const cartSlice = createSlice({
-//   name: "cart",
-//   initialState,
-//   reducers: {
-//     showCart: (state: RootState) => {
-//       state.openCart = true;
-//     },
-//     hideCart: (state: RootState) => {
-//       state.openCart = false;
-//     },
-//   },
-//   extraReducers: {},
-// });
+const calculateTotal = (state: ICart): number => {
+  let total: number = 0;
+  state?.cartItems?.map((item: any) => {
+    return (total += item?.price * item?.quantity);
+  });
+  return total;
+};
 
-// export const { showCart, hideCart } = cartSlice.actions;
-// export const useCart = (state: RootState) => state.cart;
-// export default cartSlice.reducer;
+export const cartSlice = createSlice({
+  name: "cart",
+  initialState,
+  reducers: {
+    // calculateTotal: (state) => {
+    //   let total: number = 0;
+    //   state.cartItems.map((item) => {
+    //     return (total += item.price * item?.quantity);
+    //   });
+    //   state.total = total?.toFixed(2);
+    // },
+    addToCart: (state, { payload }: PayloadAction<any>) => {
+      const isAlreadyAdded = state.cartItems.find(
+        (item) => payload.id === item.id
+      );
+
+      console.log(isAlreadyAdded);
+
+      if (!isAlreadyAdded) {
+        const newCartItem = { ...payload, quantity: 1 };
+        state.cartItems = [newCartItem, ...state.cartItems];
+        // state.totalcalculateTotal()
+        state.total = calculateTotal(state);
+        toast.success("Added To Cart");
+
+        return;
+      }
+
+      toast.error("Already In Cart");
+    },
+
+    removeFromCart: (state, { payload }: PayloadAction<any>) => {
+      const newCartItems = state.cartItems.filter(
+        (item) => item.id !== payload.id
+      );
+      state.cartItems = newCartItems;
+    },
+    showCart: (state, { payload }) => {
+      state.openCart = payload;
+    },
+  },
+});
+
+export const { addToCart, removeFromCart, showCart } = cartSlice.actions;
+
+export default cartSlice.reducer;
