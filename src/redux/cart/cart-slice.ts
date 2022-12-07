@@ -8,7 +8,7 @@ interface ICart {
 }
 
 const initialState: ICart = {
-  cartItems: [1, 2, 3],
+  cartItems: [],
   openCart: true,
 };
 

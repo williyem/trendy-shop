@@ -3,14 +3,18 @@ import { errorToast, successToast } from "../../components/toastify/toastify";
 import { apiAxios } from "../../helpers/api";
 import { URL } from "../../helpers/urls";
 
-export interface productState {
-  name: "";
+export enum PRODUCT_CATEGORY {
+  CLOTHING,
+  ACCESSORIES,
+  OTHERS,
+}
+
+export interface Inputs {
+  name: string;
   price: number;
   description?: string;
-  phone: [string];
-  category: string;
-  colour?: string;
-  size?: number;
+  photos?: [string];
+  category: PRODUCT_CATEGORY;
 }
 
 const errorMessage: string = "Failed to fetch Products";
@@ -37,17 +41,44 @@ export const getProductById: any = createAsyncThunk(
     }
   }
 );
+export const createProduct: any = createAsyncThunk(
+  "create-product",
+  async (data, { rejectWithValue }) => {
+    console.log("data to be sent", data);
+    try {
+      const response = await apiAxios.post(URL.createProduct, data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 
 const initialState = {
   products: [],
   selectedProduct: {},
+  imageUrls: [],
   loading: false,
+  crudLoading: false,
 };
 
 export const productSlice = createSlice({
   name: "product",
   initialState,
-  reducers: {},
+  reducers: {
+    assignUrls: (state, { payload }) => {
+      state.imageUrls = payload;
+    },
+    clearUrls: (state) => {
+      state.imageUrls = [];
+    },
+    setCrudLoading: (state, { payload }) => {
+      state.crudLoading = payload;
+    },
+    setProduct: (state, { payload }) => {
+      state.selectedProduct = payload;
+    },
+  },
   extraReducers: (builder) => {
     //get all products
     builder.addCase(getProducts.pending, (state) => {
@@ -56,7 +87,7 @@ export const productSlice = createSlice({
     builder.addCase(getProducts.fulfilled, (state, { payload }) => {
       console.log("payload", payload);
       if (!!payload && payload?.data?.status === 200) {
-        state.products = payload.data.data;
+        state.products = payload?.data;
       } else {
         errorToast(errorMessage);
       }
@@ -68,25 +99,43 @@ export const productSlice = createSlice({
     });
 
     //get product by id
-    builder.addCase(getProducts.pending, (state) => {
+    builder.addCase(getProductById.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(getProducts.fulfilled, (state, { payload }) => {
+    builder.addCase(getProductById.fulfilled, (state, { payload }) => {
       console.log("payload", payload);
-      if (!!payload && payload?.data?.status === 200) {
-        state.selectedProduct = payload.data.data;
+      if (!!payload && payload?.status === 200) {
+        state.selectedProduct = payload.data;
       } else {
         errorToast(errorMessage);
       }
       state.loading = false;
     });
-    builder.addCase(getProducts.rejected, (state) => {
+    builder.addCase(getProductById.rejected, (state) => {
       state.loading = false;
+      errorToast(errorMessage);
+    });
+    // create product
+    builder.addCase(createProduct.pending, (state) => {
+      state.crudLoading = true;
+    });
+    builder.addCase(createProduct.fulfilled, (state, { payload }) => {
+      console.log("payload", payload);
+      // if (!!payload && payload?.status === 200) {
+      //   state.selectedProduct = payload.data;
+      // } else {
+      //   errorToast(errorMessage);
+      // }
+      state.crudLoading = false;
+    });
+    builder.addCase(createProduct.rejected, (state) => {
+      state.crudLoading = false;
       errorToast(errorMessage);
     });
   },
 });
 
-// export const {} = productSlice.actions;
+export const { assignUrls, clearUrls, setCrudLoading, setProduct } =
+  productSlice.actions;
 // export const useProduct = (state: RootState) => state.products;
 export default productSlice.reducer;

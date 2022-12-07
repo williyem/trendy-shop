@@ -1,41 +1,79 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-
-enum PRODUCT_CATEGORY {
-  CLOTHING,
-  ACCESSORIES,
-  OTHERS,
-}
-
-type Inputs = {
-  name: string;
-  price: number;
-  description?: string;
-  photos: any;
-  category: PRODUCT_CATEGORY;
-};
+import FileList from "./file-list";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { storage } from "../../../../firebase/firebase-config";
+import {
+  errorToast,
+  successToast,
+} from "../../../../components/toastify/toastify";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import {
+  createProduct,
+  Inputs,
+  setCrudLoading,
+} from "../../../../redux/slices/products-slice";
+import ButtonLoader from "../../../../components/button-loader/button-loader";
+import { removeItem } from "../../../../helpers/easy";
 
 const NewProductForm = () => {
-  // const [fileObj, setFileObj] = useState({});
-  // const processFiles = () => {
-  //   let files = fileInputRef?.current?.files;
-  //   let url = files && URL?.createObjectURL(files[0]);
-  //   if (files[0].size / 1024 > 700) {
-  //   }
-  //   let fileObj = { file: files[0], fileName: files[0].name, url: url };
-  //   setFileObj(fileObj);
-  // };
+  const [fileArr, setFileArr] = useState<any>([]);
+  const [imgUrls, setImgUrls] = useState<any>([]);
+  const [trigger, setTrigger] = useState<any>([]);
+  const [dataToSend, setDataToSend] = useState<any>({});
+  const dispatch = useAppDispatch();
   const fileInputRef = useRef<any>(null);
+  const processFiles = (e: any) => {
+    let files = [...fileArr, fileInputRef?.current?.files];
+    setFileArr(files);
+  };
+
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setDataToSend(data);
+    let promises: any = [];
+    fileArr.map(async (image: any) => {
+      const productsRef = ref(storage, `products/${image[0].name}`);
+      const uploadTask = uploadBytesResumable(productsRef, image[0]);
+      promises.push(uploadTask);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+        },
+        (error) => {
+          errorToast("operation failed");
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log("File available at", downloadURL);
+            setImgUrls((prev: any) => [...prev, downloadURL]);
+          });
+        }
+      );
+    });
+    await Promise.all(promises)
+      .then((promis: any) => {
+        setTrigger(!trigger);
+        console.log("promises", promis);
+        console.log("image urls", imgUrls);
+        successToast("operation successful");
+      })
+      .catch((err) => {
+        errorToast("promise error");
+      });
   };
 
+  useEffect(() => {
+    console.log("final data", dataToSend);
+    console.log("final urls", imgUrls);
+  }, [trigger]);
   return (
     <div className="">
       <div className="bg-white shadow px-2 sm:rounded-lg">
@@ -93,6 +131,7 @@ const NewProductForm = () => {
                   {...register("category", { required: true })}
                   className="block w-full  rounded-md border border-gray-300  p-2 focus:border-mainPink focus:ring-indigo-500 sm:text-sm"
                 >
+                  <option value="">select category</option>
                   <option value="CLOTHING">Clothing</option>
                   <option value="ACCESSORIES">Accessories</option>
                   <option value="OTHERS">Others</option>
@@ -122,78 +161,65 @@ const NewProductForm = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Photo
-                </label>
-                <div className="mt-1 relative flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                  {/* <img
-                    src={!!fileObj ? `${fileObj?.url}` : `${agentInfo?.photo}`}
-                    alt=""
-                    onError={({ currentTarget }) => {
-                      currentTarget.onerror = null;
-                      currentTarget.src = "noImage";
-                    }}
-                    className={`h-full w-full rounded-full`}
-                  /> */}
-                  <div className="space-y-1 text-center">
-                    <svg
-                      onClick={() => fileInputRef.current.click()}
-                      className="mx-auto h-12 w-12 text-gray-400 hover:text-gray-700 transition duration-500 cursor-pointer"
-                      stroke="currentColor"
-                      fill="none"
-                      viewBox="0 0 48 48"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                    <div className="flex text-sm text-gray-600 justify-center items-center">
-                      <label
-                        htmlFor="file-upload"
-                        className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-                      >
-                        <span
-                          className="text-center w-full mx-auto"
-                          onClick={() => fileInputRef.current.click()}
-                        >
-                          Upload a file
-                        </span>
-                        <input
-                          type="file"
-                          {...register("photos")}
-                          // className="sr-only"
-                          multiple={false}
-                          ref={fileInputRef}
-                          className="hidden"
-                          // onChange={() => {
-                          //   processFiles();
-                          // }}
+                <div className="flex justify-between mt-8 ">
+                  <label className="text-sm font-medium text-gray-700">
+                    Photos
+                  </label>
+                  <span
+                    className=" inline-flex justify-center py-1 px-2 border border-transparent shadow-sm text-xs font-medium cursor-pointer text-white bg-mainPink hover:bg-deepPink focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-deepPink"
+                    onClick={() => fileInputRef.current.click()}
+                  >
+                    Select Image
+                  </span>
+                </div>
+                <div className="mt-1 relative bg-gray-100 px-3 pt-5 pb-5 border-2 border-gray-300 border-dashed rounded-md">
+                  <div className="space-y-1">
+                    {fileArr.map((file: any, index: number) => {
+                      return (
+                        <>
+                          {/* <span>{file[0].name}</span> */}
+                          <FileList
+                            fileName={file[0].name}
+                            index={index}
+                            removeItem={(e) =>
+                              removeItem(e, fileArr, setFileArr)
+                            }
+                          />
+                        </>
+                      );
+                    })}
 
-                          // type="file"
-                        />
-                      </label>
-                      {/* <p className="pl-1">or drag and drop</p> */}
-                    </div>
-                    <p className="text-xs text-gray-500">
+                    <input
+                      type="file"
+                      // {...register("photos")}
+                      // className="sr-only"
+                      multiple={false}
+                      ref={fileInputRef}
+                      className="hidden"
+                      onChange={processFiles}
+                    />
+                    {/* </label> */}
+                    {/* <p className="pl-1">or drag and drop</p> */}
+                    {/* </div> */}
+                    {/* <p className="text-xs text-gray-500">
                       PNG, JPG, GIF up to 10MB
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               </div>
+
               <div className="flex justify-end mt-5 space-x-5 p-3">
                 <button
+                  // disabled={crudLoading}
                   type="submit"
-                  className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-mainPink hover:bg-darkPink focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-mainPink hover:bg-darkPink focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-deepPink"
                 >
+                  {/* {crudLoading && <ButtonLoader />} */}
                   Add Product
                 </button>
                 <button
                   type="button"
-                  className="bg-white p-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="bg-white p-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-deepPink"
                 >
                   Cancel
                 </button>
