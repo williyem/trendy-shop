@@ -144,6 +144,26 @@ const NewProductForm = () => {
               </div>
               <div>
                 <label
+                  htmlFor="price"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Number of them in stock
+                </label>
+                <input
+                  {...register("inStock", { required: true, min: 0 })}
+                  min={1}
+                  type="number"
+                  className="block w-full  rounded-md border border-gray-300  p-2 focus:border-mainPink focus:ring-indigo-500 sm:text-sm"
+                  placeholder="0.00"
+                />
+                {errors?.inStock && (
+                  <span className="text-red-500 text-xs">
+                    This field is required
+                  </span>
+                )}
+              </div>
+              <div>
+                <label
                   htmlFor="description"
                   className="block text-sm font-medium text-gray-700"
                 >
