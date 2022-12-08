@@ -14,7 +14,7 @@ const Products: React.FC = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
 
-  const { categoryName } = location.state;
+  const { categoryName } = location?.state;
 
   useEffect(() => {
     const fetchProducts = async () => {
