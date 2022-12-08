@@ -21,12 +21,11 @@ const Products: React.FC = () => {
       setFetchingProducts(true);
       const { data } = await apiAxios.get(URL.getProducts + `/${categoryName}`);
       setProducts(data?.data);
-      console.log(data);
       setFetchingProducts(false);
     };
 
     fetchProducts();
-  }, []);
+  }, [categoryName]);
 
   return (
     <div className="bg-white">

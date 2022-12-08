@@ -1,32 +1,39 @@
+import { useForm } from "react-hook-form";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import useCart from "../../hooks/useCart";
+import usePayment from "../../hooks/usePayment";
 import { useAppDispatch } from "../../redux/hooks";
 import { removeFromCart, setCart } from "../../redux/slices/cart-slice";
 
-const products = [
-  {
-    id: 1,
-    name: "High Wall Tote",
-    href: "#",
-    price: "$210.00",
-    color: "White and black",
-    size: "15L",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/checkout-page-07-product-01.jpg",
-    imageAlt:
-      "Front of zip tote bag with white canvas, white handles, and black drawstring top.",
-  },
-];
-
 export default function Checkout() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
   const { cartItems, total } = useCart();
-
   const dispatch = useAppDispatch();
+
+  const name = watch("input.name");
+  const location = watch("input.location");
+  const phone = watch("input.phone");
+  const landmark = watch("input.landMark");
+  const { makePayment } = usePayment({ name, location, phone, landmark });
+
+  const onSubmit = () => {
+    makePayment();
+  };
+
   return (
     <div className="bg-white">
       <div>
         <div className="bg-white">
           <div className="max-w-2xl mx-auto pt-2 mb-4 md:pt-16  px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-            <form className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16"
+            >
               <div>
                 <div>
                   <h2 className="text-lg font-medium text-gray-900">
@@ -42,28 +49,51 @@ export default function Checkout() {
                       </label>
                       <div className="mt-1">
                         <input
+                          {...register("input.name", {
+                            required: "Required",
+                          })}
                           type="text"
-                          className="block w-full p-2 border-b border-gray-600  shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          className="block w-full  border-b border-gray-600  shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
-                        {/* <ErrorMessage errors={errors} name="input.name" /> */}
+                        <ErrorMessage errors={errors} name="input.name" />
                       </div>
                     </div>
+
+                    <div className="sm:col-span-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Email
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          {...register("input.email", {
+                            required: "Required",
+                          })}
+                          type="text"
+                          className="block w-full  border-b border-gray-600  shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        />
+                        <ErrorMessage errors={errors} name="input.email" />
+                      </div>
+                    </div>
+
                     <div className="sm:col-span-2">
                       <label
                         htmlFor="address"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        Address
+                        Location
                       </label>
                       <div className="mt-1">
                         <input
-                          // {...register("input.address", {
-                          //   required: "Required",
-                          // })}
+                          {...register("input.location", {
+                            required: "Required",
+                          })}
                           type="text"
-                          className="block w-full p-2 border-b border-gray-600 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          className="block w-full border-b border-gray-600 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
-                        {/* <ErrorMessage errors={errors} name="input.address" /> */}
+                        <ErrorMessage errors={errors} name="input.location" />
                       </div>
                     </div>
                     <div className="sm:col-span-2">
@@ -75,13 +105,13 @@ export default function Checkout() {
                       </label>
                       <div className="mt-1">
                         <input
-                          // {...register("input.phone", {
-                          //   required: "Required",
-                          // })}
+                          {...register("input.phone", {
+                            required: "Required",
+                          })}
                           type="text"
-                          className="border-b border-gray-600 block w-full p-2  shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          className="border-b border-gray-600 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
-                        {/* <ErrorMessage errors={errors} name="input.phone" /> */}
+                        <ErrorMessage errors={errors} name="input.phone" />
                       </div>
                     </div>
                     <div className="sm:col-span-2">
@@ -93,13 +123,13 @@ export default function Checkout() {
                       </label>
                       <div className="mt-1">
                         <input
-                          // {...register("input.landMark", {
-                          //   required: "Required",
-                          // })}
+                          {...register("input.landMark", {
+                            required: "Required",
+                          })}
                           type="text"
-                          className="block w-full p-2 border-b border-gray-600  shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          className="block w-full border-b border-gray-600  shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
-                        {/* <ErrorMessage errors={errors} name="input.landMark" /> */}
+                        <ErrorMessage errors={errors} name="input.landMark" />
                       </div>
                     </div>
                   </div>
