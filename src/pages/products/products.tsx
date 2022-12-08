@@ -1,7 +1,8 @@
-import { CheckCircleIcon } from "@heroicons/react/solid";
 import { useAppDispatch } from "../../redux/hooks";
 import { getProducts, setProduct } from "../../redux/slices/products-slice";
+import { CheckCircleIcon } from "@heroicons/react/solid";
 import { XCircleIcon } from "@heroicons/react/outline";
+import Instock from "../../components/in-stock/in-stock";
 const products = [
   {
     id: 1,
@@ -135,17 +136,7 @@ const Products: React.FC = () => {
                     </a>
                   </h3>
                   <div className="mt-1 text-sm text-gray-700 font-medium flex hover:underline">
-                    {product?.inStock === 0 ? (
-                      <div className="flex ">
-                        <XCircleIcon className="text-xs text-red-500  w-5 h-5 mr-2" />
-                        <span className="text-red-500">out of stock</span>
-                      </div>
-                    ) : (
-                      <div className="flex ">
-                        <CheckCircleIcon className="text-xs text-green-500 w-5 h-5 mr-2" />
-                        {product?.inStock} in stock
-                      </div>
-                    )}
+                    <Instock product={product} />
                   </div>
                 </div>
                 <p className="text-md font-medium text-gray-900">

@@ -182,7 +182,7 @@ export default function Cart({ open, setOpen }: props) {
                       </p>
                       <div className="mt-6">
                         <span className="flex items-center justify-center rounded-md border border-transparent bg-mainPink px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-deepPink">
-                          Checkout
+                          <a href="/checkout">Checkout</a>
                         </span>
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">

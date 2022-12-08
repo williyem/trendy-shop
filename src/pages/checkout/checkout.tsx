@@ -1,3 +1,7 @@
+import useCart from "../../hooks/useCart";
+import { useAppDispatch } from "../../redux/hooks";
+import { removeFromCart, setCart } from "../../redux/slices/cart-slice";
+
 const products = [
   {
     id: 1,
@@ -14,6 +18,9 @@ const products = [
 ];
 
 export default function Checkout() {
+  const { cartItems, total } = useCart();
+
+  const dispatch = useAppDispatch();
   return (
     <div className="bg-white">
       <div>
@@ -23,7 +30,7 @@ export default function Checkout() {
               <div>
                 <div>
                   <h2 className="text-lg font-medium text-gray-900">
-                    Shipping information
+                    Buyer information
                   </h2>
                   <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
                     <div className="sm:col-span-2">
@@ -105,42 +112,87 @@ export default function Checkout() {
                 </h2>
 
                 <div className="mt-4 bg-white border border-gray-200 rounded-lg shadow-sm">
-                  <ul className="divide-y divide-gray-200">
-                    {products.map((product, index) => (
-                      <li key={index} className="flex  p-3">
-                        <div className="flex-shrink-0">
+                  <ul className="divide-y divide-gray-200 sm:max-w-[90%] mx-auto">
+                    {cartItems.map((product) => (
+                      <li key={product.id} className="flex py-6">
+                        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                           <img
-                            // src={product.images[0].src}
-                            src={product.imageSrc}
-                            alt={product.imageAlt}
-                            className="w-10 rounded-md"
+                            src={product?.photos[0]}
+                            alt={product.description}
+                            className="h-full w-full object-cover object-center"
                           />
                         </div>
 
-                        <div className="ml-6 flex-1 flex flex-col">
-                          <div className="flex">
-                            <div className="min-w-0 flex-1">
-                              <h4 className="text-sm">
-                                <a
-                                  href={product.href}
-                                  className="font-medium text-gray-700 hover:text-gray-800"
-                                >
-                                  {product.name}
-                                </a>
-                              </h4>
-                              <p className="mt-1 text-sm text-gray-500">
-                                {product.color}
-                              </p>
-                              <p className="mt-1 text-sm text-gray-500">
-                                {product.size}
+                        <div className="ml-4 flex flex-1 flex-col">
+                          <div>
+                            <div className="flex justify-between text-base font-medium text-gray-900">
+                              <h3>
+                                <a href={product.href}>{product.name}</a>
+                              </h3>
+                              <p className="ml-4">
+                                GHS {parseInt(product.price).toFixed(2)}
                               </p>
                             </div>
-                          </div>
-
-                          <div className="flex-1 pt-2 flex items-end justify-between">
-                            <p className="mt-1 text-sm font-medium text-gray-900">
-                              GH₵ {product.price}
+                            <p className="mt-1 text-sm text-gray-500">
+                              {product.category}
                             </p>
+                          </div>
+                          <div className="flex flex-1 items-end justify-between text-sm">
+                            <p className="text-gray-700 ">
+                              Qty{" "}
+                              <select
+                                value={product?.quantity}
+                                className=" max-w-full rounded-sm border border-gray-400  px-2 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-mainPink focus:border-mainPink sm:text-sm"
+                                onChange={(e) => {
+                                  const cartItemsCopy = [...cartItems];
+
+                                  const newProduct = {
+                                    ...product,
+                                    quantity: parseFloat(e.target.value),
+                                  };
+
+                                  const indexOfProduct = cartItems.findIndex(
+                                    (item) => item.id === product.id
+                                  );
+
+                                  cartItemsCopy.splice(
+                                    indexOfProduct,
+                                    1,
+                                    newProduct
+                                  );
+                                  dispatch(setCart(cartItemsCopy));
+                                }}
+                              >
+                                {Array.from(
+                                  { length: product?.inStock },
+                                  (_, i) => i + 1
+                                ).map((num: any) => {
+                                  return (
+                                    <>
+                                      <option
+                                        value={num}
+                                        key={num}
+                                        selected={product?.quantity === num}
+                                      >
+                                        {num}
+                                      </option>
+                                    </>
+                                  );
+                                })}
+                              </select>
+                            </p>
+
+                            <div className="flex">
+                              <button
+                                type="button"
+                                className="font-medium text-mainPink hover:text-deepPink"
+                                onClick={() =>
+                                  dispatch(removeFromCart(product))
+                                }
+                              >
+                                Remove
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </li>
@@ -150,7 +202,7 @@ export default function Checkout() {
                     <div className="flex items-center justify-between border-t border-gray-200 pt-6">
                       <dt className="text-base font-medium">Total</dt>
                       <dd className="text-base font-medium text-gray-900">
-                        GH₵ 500
+                        GH₵ {total.toFixed(2)}
                       </dd>
                     </div>
                   </dl>
