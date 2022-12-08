@@ -1,5 +1,3 @@
-import { Inputs } from "../redux/slices/products-slice";
-
 //TODO:extract this function later
 export const removeItem = (index: any, fileArr: any[], setFileArr: any) => {
   const pictureArr = [...fileArr];

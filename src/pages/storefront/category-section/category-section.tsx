@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { categories } from "../../../helpers/ui-data";
 
 const CategorySection: React.FC = () => {
@@ -28,9 +29,10 @@ const CategorySection: React.FC = () => {
             <div className="box-content py-2 relative h-80 overflow-x-auto xl:overflow-visible">
               <div className="absolute min-w-screen-xl px-4 flex space-x-8 sm:px-6 md:relative md:px-0 md:space-x-0 md:grid md:grid-cols-3 md:gap-x-8">
                 {categories.map((category) => (
-                  <a
+                  <NavLink
+                    state={{ categoryName: category.name }}
                     key={category.name}
-                    href={category.href}
+                    to={category.href}
                     className="relative w-56 h-80 rounded-lg p-6 flex flex-col overflow-hidden hover:opacity-75 md:w-auto"
                   >
                     <span aria-hidden="true" className="absolute inset-0">
@@ -47,7 +49,7 @@ const CategorySection: React.FC = () => {
                     <span className="relative mt-auto text-center text-xl font-bold text-white">
                       {category.name}
                     </span>
-                  </a>
+                  </NavLink>
                 ))}
               </div>
             </div>

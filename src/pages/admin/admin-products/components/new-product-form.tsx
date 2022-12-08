@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import FileList from "./file-list";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
@@ -7,13 +7,9 @@ import {
   errorToast,
   successToast,
 } from "../../../../components/toastify/toastify";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import {
-  createProduct,
-  Inputs,
-  setCrudLoading,
-} from "../../../../redux/slices/products-slice";
-import ButtonLoader from "../../../../components/button-loader/button-loader";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { Inputs } from "../../../../redux/slices/products-slice";
+// import ButtonLoader from "../../../../components/button-loader/button-loader";
 import { removeItem } from "../../../../helpers/easy";
 
 const NewProductForm = () => {
@@ -36,7 +32,8 @@ const NewProductForm = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setDataToSend(data);
     let promises: any = [];
-    fileArr.map(async (image: any) => {
+
+    fileArr.forEach((image: any, index: number) => {
       const productsRef = ref(storage, `products/${image[0].name}`);
       const uploadTask = uploadBytesResumable(productsRef, image[0]);
       promises.push(uploadTask);
@@ -50,30 +47,25 @@ const NewProductForm = () => {
         (error) => {
           errorToast("operation failed");
         },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            console.log("File available at", downloadURL);
+        async () => {
+          await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setImgUrls((prev: any) => [...prev, downloadURL]);
           });
         }
       );
     });
-    await Promise.all(promises)
-      .then((promis: any) => {
+
+    Promise.all(promises)
+      .then((res: any) => {
         setTrigger(!trigger);
-        console.log("promises", promis);
-        console.log("image urls", imgUrls);
+
         successToast("operation successful");
       })
       .catch((err) => {
-        errorToast("promise error");
+        errorToast(err?.message);
       });
   };
 
-  useEffect(() => {
-    console.log("final data", dataToSend);
-    console.log("final urls", imgUrls);
-  }, [trigger]);
   return (
     <div className="">
       <div className="bg-white shadow px-2 sm:rounded-lg">
@@ -196,7 +188,7 @@ const NewProductForm = () => {
                   <div className="space-y-1">
                     {fileArr.map((file: any, index: number) => {
                       return (
-                        <>
+                        <span key={index}>
                           {/* <span>{file[0].name}</span> */}
                           <FileList
                             fileName={file[0].name}
@@ -205,7 +197,7 @@ const NewProductForm = () => {
                               removeItem(e, fileArr, setFileArr)
                             }
                           />
-                        </>
+                        </span>
                       );
                     })}
 

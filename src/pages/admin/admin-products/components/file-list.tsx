@@ -1,6 +1,4 @@
-import { PaperClipIcon } from "@heroicons/react/outline";
 import { TrashIcon } from "@heroicons/react/solid";
-import React from "react";
 
 interface IProp {
   fileName: string;

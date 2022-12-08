@@ -120,17 +120,6 @@ export const categories: Category[] = [
     href: "/products",
     imageSrc: require("../assets/images/man.jpg"),
   },
-  // {
-  //   name: "Women",
-  //   href: "#",
-  //   imageSrc: require("../assets/images/woman.jpg"),
-  // },
-  // {
-  //   name: "Kids",
-  //   href: "#",
-  //   imageSrc: require("../assets/images/kid.jpg"),
-  // },
-
   {
     name: "Accessories",
     href: "/products",
