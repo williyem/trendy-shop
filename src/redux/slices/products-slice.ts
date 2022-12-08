@@ -18,7 +18,7 @@ export interface Inputs {
   category: PRODUCT_CATEGORY;
 }
 
-const errorMessage: string = "Failed to fetch Products";
+const errorMessage: string = "Please check your internet";
 
 export const getProducts: any = createAsyncThunk(
   "get-products",
@@ -31,7 +31,7 @@ export const getProducts: any = createAsyncThunk(
     }
   }
 );
-export const getProductById: any = createAsyncThunk(
+export const getProductByCategory: any = createAsyncThunk(
   "get-products-by-id",
   async (id, { rejectWithValue }) => {
     try {
@@ -100,19 +100,19 @@ export const productSlice = createSlice({
     });
 
     //get product by id
-    builder.addCase(getProductById.pending, (state) => {
+    builder.addCase(getProductByCategory.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(getProductById.fulfilled, (state, { payload }) => {
+    builder.addCase(getProductByCategory.fulfilled, (state, { payload }) => {
       console.log("payload", payload);
       if (!!payload && payload?.status === 200) {
-        state.selectedProduct = payload.data;
+        state.products = payload.data;
       } else {
         errorToast(errorMessage);
       }
       state.loading = false;
     });
-    builder.addCase(getProductById.rejected, (state) => {
+    builder.addCase(getProductByCategory.rejected, (state) => {
       state.loading = false;
       errorToast(errorMessage);
     });
