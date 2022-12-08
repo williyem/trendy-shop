@@ -1,37 +1,8 @@
 import { Fragment, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { useAppSelector } from "../../redux/hooks";
-// import { XMarkIcon } from "@heroicons/react/24/outline";
-
-const products = [
-  {
-    id: 1,
-    name: "Throwback Hip Bag",
-    href: "#",
-    category: "OTHERS",
-    price: "$90.00",
-    quantity: 1,
-    photos: [
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
-    ],
-    description:
-      "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
-  },
-  {
-    id: 2,
-    name: "Medium Stuff Satchel",
-    href: "#",
-    category: "ACCESSORY",
-    price: "$32.00",
-    quantity: 1,
-    photos: [
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-    ],
-    description:
-      "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
-  },
-  // More products...
-];
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import useCart from "../../hooks/useCart";
+import { removeFromCart, setCart } from "../../redux/slices/cart-slice";
 
 interface props {
   open: boolean;
@@ -39,6 +10,9 @@ interface props {
 }
 
 export default function Cart({ open, setOpen }: props) {
+  const { cartItems, total } = useCart();
+
+  const dispatch = useAppDispatch();
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -102,11 +76,11 @@ export default function Cart({ open, setOpen }: props) {
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul className="-my-6 divide-y divide-gray-200">
-                            {products.map((product) => (
+                            {cartItems.map((product) => (
                               <li key={product.id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
-                                    src={product.photos[0]}
+                                    src={product?.photos[0]}
                                     alt={product.description}
                                     className="h-full w-full object-cover object-center"
                                   />
@@ -120,21 +94,71 @@ export default function Cart({ open, setOpen }: props) {
                                           {product.name}
                                         </a>
                                       </h3>
-                                      <p className="ml-4">{product.price}</p>
+                                      <p className="ml-4">
+                                        GHS {parseInt(product.price).toFixed(2)}
+                                      </p>
                                     </div>
                                     <p className="mt-1 text-sm text-gray-500">
                                       {product.category}
                                     </p>
                                   </div>
                                   <div className="flex flex-1 items-end justify-between text-sm">
-                                    <p className="text-gray-500">
-                                      Qty {product.quantity}
+                                    <p className="text-gray-700 ">
+                                      Qty{" "}
+                                      <select
+                                        value={product?.quantity}
+                                        className=" max-w-full rounded-sm border border-gray-400  px-2 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-mainPink focus:border-mainPink sm:text-sm"
+                                        onChange={(e) => {
+                                          const cartItemsCopy = [...cartItems];
+
+                                          const newProduct = {
+                                            ...product,
+                                            quantity: parseFloat(
+                                              e.target.value
+                                            ),
+                                          };
+
+                                          const indexOfProduct =
+                                            cartItems.findIndex(
+                                              (item) => item.id === product.id
+                                            );
+
+                                          cartItemsCopy.splice(
+                                            indexOfProduct,
+                                            1,
+                                            newProduct
+                                          );
+                                          dispatch(setCart(cartItemsCopy));
+                                        }}
+                                      >
+                                        {Array.from(
+                                          { length: product?.inStock },
+                                          (_, i) => i + 1
+                                        ).map((num: any) => {
+                                          return (
+                                            <>
+                                              <option
+                                                value={num}
+                                                key={num}
+                                                selected={
+                                                  product?.quantity === num
+                                                }
+                                              >
+                                                {num}
+                                              </option>
+                                            </>
+                                          );
+                                        })}
+                                      </select>
                                     </p>
 
                                     <div className="flex">
                                       <button
                                         type="button"
                                         className="font-medium text-mainPink hover:text-deepPink"
+                                        onClick={() =>
+                                          dispatch(removeFromCart(product))
+                                        }
                                       >
                                         Remove
                                       </button>
@@ -151,21 +175,21 @@ export default function Cart({ open, setOpen }: props) {
                     <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>$262.00</p>
+                        <p>GHS {total.toFixed(2)}</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">
                         Delivery Fee yet to be added
                       </p>
                       <div className="mt-6">
                         <span className="flex items-center justify-center rounded-md border border-transparent bg-mainPink px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-deepPink">
-                          Checkout
+                          <a href="/checkout">Checkout</a>
                         </span>
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                         <p>
                           <button
                             type="button"
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                            className="font-medium text-indigo-600 hover:text-mainPink"
                             onClick={() => setOpen(false)}
                           >
                             Continue Shopping

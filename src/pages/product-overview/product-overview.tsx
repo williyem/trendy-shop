@@ -1,9 +1,13 @@
-import { useAppSelector } from "../../redux/hooks";
+import Instock from "../../components/in-stock/in-stock";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { addToCart } from "../../redux/slices/cart-slice";
 
 const ProductOverview = () => {
   const { selectedProduct: product } = useAppSelector(
     (state: any) => state.products
   );
+  const dispatch = useAppDispatch();
+
   return (
     <>
       <section className="text-gray-600 body-font overflow-hidden">
@@ -21,6 +25,7 @@ const ProductOverview = () => {
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                 {product?.name}
               </h1>
+              <Instock product={product} />
               {/* <div className="flex mb-4">
                 <span className="flex items-center">
                   <svg
@@ -119,7 +124,7 @@ const ProductOverview = () => {
                   </span>
                 </span>
               </div> */}
-              <p className="leading-relaxed">{product?.description}</p>
+              <p className="leading-relaxed mt-2">{product?.description}</p>
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
                 {/* <div className="flex">
                   <span className="mr-3">Color</span>
@@ -154,10 +159,16 @@ const ProductOverview = () => {
               </div>
               <div className="flex">
                 <span className="title-font font-medium text-2xl text-gray-900">
-                  GHS {product?.price}
+                  GHS {parseFloat(product?.price)?.toFixed(2)}
                 </span>
-                <button className="flex ml-auto text-white bg-mainPink border-0 py-2 px-6 focus:outline-none hover:bg-deepPink rounded">
-                  Add to cart
+                <button
+                  disabled={product?.inStock === 0}
+                  onClick={() => {
+                    dispatch(addToCart(product));
+                  }}
+                  className="flex ml-auto text-white bg-mainPink border-0 py-2 px-6 focus:outline-none hover:bg-deepPink rounded"
+                >
+                  {product?.inStock === 0 ? "Out of stock" : "Add to cart"}
                 </button>
                 {/* <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                   <svg

@@ -67,7 +67,10 @@ const navigation = {
     },
   ],
   pages: [
-    { name: "Others", href: "/products" },
+    { name: "All", href: "/products" },
+    { name: "Clothing", href: "/products/clothing" },
+    { name: "Accessories", href: "/products/accessories" },
+    { name: "Others", href: "/products/others" },
     // { name: "Stores", href: "#" },
   ],
 };
@@ -268,9 +271,9 @@ export default function Topbar() {
                     </span>
                   </div>
                   <div className="flow-root">
-                    <a className="-m-2 p-2 block font-medium text-gray-900">
+                    <span className="-m-2 p-2 block font-medium text-gray-900">
                       Sign in
-                    </a>
+                    </span>
                   </div>
                 </div>
 
@@ -346,7 +349,7 @@ export default function Topbar() {
                       {/* Mega menus */}
                       <Popover.Group className="ml-8 ">
                         <div className="h-full flex justify-center space-x-8">
-                          {navigation.categories.map(
+                          {/* {navigation.categories.map(
                             (category, categoryIdx) => (
                               <Popover key={category.name} className="flex">
                                 {({ open }) => (
@@ -374,7 +377,6 @@ export default function Topbar() {
                                       leaveTo="opacity-0"
                                     >
                                       <Popover.Panel className="absolute top-full inset-x-0 text-gray-500 sm:text-sm">
-                                        {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                                         <div
                                           className="absolute inset-0 top-1/2 bg-white shadow-xl"
                                           aria-hidden="true"
@@ -385,10 +387,7 @@ export default function Topbar() {
                                             <div className="grid grid-cols-2 items-start gap-y-10 gap-x-8 pt-10 pb-12">
                                               <div className="grid grid-cols-2 gap-y-10 gap-x-8">
                                                 <div>
-                                                  <p
-                                                    // id={`desktop-featured-heading-${categoryIdx}`}
-                                                    className="font-medium text-gray-900"
-                                                  >
+                                                  <p className="font-medium text-gray-900">
                                                     Featured
                                                   </p>
                                                   <ul
@@ -503,7 +502,7 @@ export default function Topbar() {
                                 )}
                               </Popover>
                             )
-                          )}
+                          )} */}
 
                           {navigation.pages.map((page) => (
                             <a

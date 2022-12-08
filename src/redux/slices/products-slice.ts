@@ -11,9 +11,10 @@ export enum PRODUCT_CATEGORY {
 
 export interface Inputs {
   name: string;
-  price: number;
+  price: number | string;
   description?: string;
   photos?: [string];
+  inStock?: number;
   category: PRODUCT_CATEGORY;
 }
 
