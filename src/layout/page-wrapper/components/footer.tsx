@@ -4,7 +4,7 @@ import { footerNavigation } from "../../../helpers/ui-data";
 const Footer: React.FC = () => {
   return (
     <>
-      <footer aria-labelledby="footer-heading" className="bg-gray-900">
+      <footer aria-labelledby="footer-heading" className="bg-gray-900 mt-8">
         <h2 id="footer-heading" className="sr-only">
           Footer
         </h2>
@@ -66,6 +66,8 @@ const Footer: React.FC = () => {
                       <li key={item.name} className="text-sm">
                         <a
                           href={item.href}
+                          target="_blank"
+                          rel="noreferrer"
                           className="text-gray-300 hover:text-white"
                         >
                           {item.name}
@@ -91,6 +93,7 @@ const Footer: React.FC = () => {
                   id="email-address"
                   type="text"
                   autoComplete="email"
+                  placeholder="email"
                   required
                   className="appearance-none min-w-0 w-full bg-white border border-white rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:border-white focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-white"
                 />
@@ -106,7 +109,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          <div className="border-t border-gray-800 py-10">
+          <div className="border-t border-gray-800 py-3">
             <p className="text-sm text-gray-400">
               Copyright &copy; 2022 Henneh Inc.
             </p>

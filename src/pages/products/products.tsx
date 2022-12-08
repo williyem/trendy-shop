@@ -48,7 +48,7 @@ const products = [
     price: "75",
     inStock: 5,
     photos: [
-      "https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg",
+      "https://tailwindui.com/img/ecommerce-images/checkout-page-07-product-01.jpg",
     ],
     description: "Hand stitched, orange leather long wallet.",
   },
@@ -71,7 +71,7 @@ const products = [
     price: "75",
     inStock: 5,
     photos: [
-      "https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg",
+      "https://tailwindui.com/img/ecommerce-images/checkout-page-07-product-01.jpg",
     ],
     description: "Hand stitched, orange leather long wallet.",
   },

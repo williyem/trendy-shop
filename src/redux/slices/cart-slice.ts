@@ -28,13 +28,6 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    // calculateTotal: (state) => {
-    //   let total: number = 0;
-    //   state.cartItems.map((item) => {
-    //     return (total += item.price * item?.quantity);
-    //   });
-    //   state.total = total?.toFixed(2);
-    // },
     setCart: (state, { payload }: PayloadAction<any>) => {
       state.cartItems = payload;
       state.total = calculateTotal(state);
