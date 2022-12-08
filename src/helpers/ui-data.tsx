@@ -116,7 +116,7 @@ export const navigation: Navigation = {
 };
 export const categories: Category[] = [
   {
-    name: "clothings",
+    name: "clothing",
     href: "/products",
     imageSrc: require("../assets/images/man.jpg"),
   },
