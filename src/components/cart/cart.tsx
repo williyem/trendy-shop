@@ -1,8 +1,9 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useAppDispatch } from "../../redux/hooks";
 import useCart from "../../hooks/useCart";
 import { removeFromCart, setCart } from "../../redux/slices/cart-slice";
+import { useNavigate } from "react-router-dom";
 
 interface props {
   open: boolean;
@@ -11,6 +12,8 @@ interface props {
 
 export default function Cart({ open, setOpen }: props) {
   const { cartItems, total } = useCart();
+
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
   return (
@@ -120,7 +123,8 @@ export default function Cart({ open, setOpen }: props) {
 
                                           const indexOfProduct =
                                             cartItems.findIndex(
-                                              (item) => item.id === product.id
+                                              (item: any) =>
+                                                item.id === product.id
                                             );
 
                                           cartItemsCopy.splice(
@@ -180,11 +184,18 @@ export default function Cart({ open, setOpen }: props) {
                       <p className="mt-0.5 text-sm text-gray-500">
                         Delivery Fee yet to be added
                       </p>
-                      <div className="mt-6">
-                        <span className="flex items-center justify-center rounded-md border border-transparent bg-mainPink px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-deepPink">
-                          <a href="/checkout">Checkout</a>
-                        </span>
-                      </div>
+                      <button
+                        disabled={cartItems.length === 0}
+                        className="mt-6 disabled:bg-gray-500 disabled:cursor-not-allowed w-full flex items-center justify-center rounded-md border border-transparent bg-mainPink px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-deepPink "
+                        onClick={() => {
+                          navigate("/checkout");
+                        }}
+                      >
+                        {/* <span className="flex items-center justify-center rounded-md border border-transparent bg-mainPink px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-deepPink"> */}
+                        Checkout
+                        {/* </span> */}
+                      </button>
+
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                         <p>
                           <button
