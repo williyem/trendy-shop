@@ -24,7 +24,7 @@ const Products: React.FC = () => {
     const fetchProducts = async () => {
       categoryName
         ? dispatch(getProductByCategory(categoryName))
-        : dispatch(getProducts());
+        : dispatch(getProductByCategory(""));
     };
 
     fetchProducts();

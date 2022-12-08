@@ -86,8 +86,8 @@ export const productSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(getProducts.fulfilled, (state, { payload }) => {
-      console.log("payload", payload);
       if (!!payload && payload?.data?.status === 200) {
+        console.log("payload", payload);
         state.products = payload?.data;
       } else {
         errorToast(errorMessage);
