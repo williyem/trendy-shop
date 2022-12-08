@@ -1,7 +1,5 @@
-import React from "react";
 import { CheckCircleIcon } from "@heroicons/react/solid";
 import { XCircleIcon } from "@heroicons/react/outline";
-import { Inputs } from "../../redux/slices/products-slice";
 
 interface props {
   product: any;

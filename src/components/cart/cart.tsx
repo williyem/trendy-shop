@@ -1,6 +1,6 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useAppDispatch } from "../../redux/hooks";
 import useCart from "../../hooks/useCart";
 import { removeFromCart, setCart } from "../../redux/slices/cart-slice";
 
