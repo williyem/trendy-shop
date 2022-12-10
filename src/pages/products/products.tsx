@@ -15,6 +15,7 @@ const Products: React.FC = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
 
+
   const categoryName = location?.state?.categoryName ?? null;
 
   useEffect(() => {

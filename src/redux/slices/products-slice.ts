@@ -45,7 +45,6 @@ export const getProductByCategory: any = createAsyncThunk(
 export const createProduct: any = createAsyncThunk(
   "create-product",
   async (data, { rejectWithValue }) => {
-    console.log("data to be sent", data);
     try {
       const response = await apiAxios.post(URL.createProduct, data);
       return response.data;
@@ -103,6 +102,7 @@ export const productSlice = createSlice({
     builder.addCase(getProductByCategory.pending, (state) => {
       state.loading = true;
     });
+
     builder.addCase(getProductByCategory.fulfilled, (state, { payload }) => {
       console.log("payload", payload);
       if (!!payload && payload?.status === 200) {
@@ -121,7 +121,7 @@ export const productSlice = createSlice({
       state.crudLoading = true;
     });
     builder.addCase(createProduct.fulfilled, (state, { payload }) => {
-      console.log("payload", payload);
+      // console.log("payload", payload);
       // if (!!payload && payload?.status === 200) {
       //   state.selectedProduct = payload.data;
       // } else {

@@ -37,8 +37,6 @@ export const cartSlice = createSlice({
         (item) => payload.id === item.id
       );
 
-      console.log(isAlreadyAdded);
-
       if (!isAlreadyAdded) {
         const newCartItem = { ...payload, quantity: 1 };
         state.cartItems = [newCartItem, ...state.cartItems];
