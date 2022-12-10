@@ -4,7 +4,7 @@ import { storage } from "./firebase-config";
 
 // Create a storage reference from our storage service
 
-export const uploadImage = (images):any => {
+export const uploadImage = (images) => {
   let promises = [];
   let urls = [];
   images.map((image) => {
