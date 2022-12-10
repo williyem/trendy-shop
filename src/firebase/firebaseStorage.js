@@ -4,7 +4,7 @@ import { storage } from "./firebase-config";
 
 // Create a storage reference from our storage service
 
-export const uploadImage = (images) => {
+export const uploadImage = (images):any => {
   let promises = [];
   let urls = [];
   images.map((image) => {
@@ -35,13 +35,14 @@ export const uploadImage = (images) => {
     return urls;
   });
 
-  Promise.all(promises)
-    .then((response) => {
-      console.log("promise response: ", response);
+  return urls;
+  // Promise.all(promises)
+  //   .then((response) => {
+  //     console.log("promise response: ", response);
 
-      successToast("All images uploaded");
-    })
-    .catch((err) => errorToast("image upload failed"));
+  //     successToast("All images uploaded");
+  //   })
+  //   .catch((err) => errorToast("image upload failed"));
 };
 
 // Create
