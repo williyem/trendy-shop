@@ -29,10 +29,6 @@ const NewProductForm = () => {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    uploadImage(fileArr).then((response: any) => {
-      console.log("response", response);
-    });
-
     // await dispatch(createProduct({ ...data, photos: urls }));
     // setUrls([]);
   };
