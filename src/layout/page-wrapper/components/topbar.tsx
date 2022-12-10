@@ -6,6 +6,7 @@ import { MenuIcon, ShoppingCartIcon, XIcon } from "@heroicons/react/outline";
 import TopNotificationBar from "./TopNotificationBar";
 import useCart from "../../../hooks/useCart";
 import Cart from "../../../components/cart/cart";
+import { NavLink } from "react-router-dom";
 
 // const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']
 const navigation = {
@@ -505,13 +506,19 @@ export default function Topbar() {
                           )} */}
 
                           {navigation.pages.map((page) => (
-                            <a
+                            <NavLink
                               key={page.name}
-                              href={page.href}
+                              to={"/products"}
+                              state={{
+                                categoryName:
+                                  page?.name?.toLowerCase() !== "all"
+                                    ? page?.name
+                                    : "",
+                              }}
                               className="flex items-center text-sm font-medium text-mainBrown hover:text-mainPink"
                             >
                               {page.name}
-                            </a>
+                            </NavLink>
                           ))}
                         </div>
                       </Popover.Group>
