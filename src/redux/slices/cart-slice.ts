@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { errorToast, successToast } from "../../components/toastify/toastify";
 
 interface ICart {
   cartItems: any[];
@@ -44,12 +44,12 @@ export const cartSlice = createSlice({
         state.cartItems = [newCartItem, ...state.cartItems];
         // state.totalcalculateTotal()
         state.total = calculateTotal(state);
-        toast.success("Added To Cart");
+        successToast("Added To Cart");
 
         return;
       }
 
-      toast.error("Already In Cart");
+      errorToast("Already In Cart");
     },
 
     removeFromCart: (state, { payload }: PayloadAction<any>) => {

@@ -8,15 +8,14 @@ import {
   successToast,
 } from "../../../../components/toastify/toastify";
 import { useAppDispatch } from "../../../../redux/hooks";
-import { Inputs } from "../../../../redux/slices/products-slice";
+import { createProduct, Inputs } from "../../../../redux/slices/products-slice";
 // import ButtonLoader from "../../../../components/button-loader/button-loader";
 import { removeItem } from "../../../../helpers/easy";
+import { uploadImage } from "../../../../firebase/firebaseStorage";
 
 const NewProductForm = () => {
   const [fileArr, setFileArr] = useState<any>([]);
-  const [imgUrls, setImgUrls] = useState<any>([]);
-  const [trigger, setTrigger] = useState<any>([]);
-  const [dataToSend, setDataToSend] = useState<any>({});
+  const [urls, setUrls] = useState<any>([]);
   const dispatch = useAppDispatch();
   const fileInputRef = useRef<any>(null);
   const processFiles = (e: any) => {
@@ -29,41 +28,9 @@ const NewProductForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    setDataToSend(data);
-    let promises: any = [];
-
-    fileArr.forEach((image: any, index: number) => {
-      const productsRef = ref(storage, `products/${image[0].name}`);
-      const uploadTask = uploadBytesResumable(productsRef, image[0]);
-      promises.push(uploadTask);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
-        },
-        (error) => {
-          errorToast("operation failed");
-        },
-        async () => {
-          await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setImgUrls((prev: any) => [...prev, downloadURL]);
-          });
-        }
-      );
-    });
-
-    Promise.all(promises)
-      .then((res: any) => {
-        setTrigger(!trigger);
-
-        successToast("operation successful");
-      })
-      .catch((err) => {
-        errorToast(err?.message);
-      });
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    // await dispatch(createProduct({ ...data, photos: urls }));
+    // setUrls([]);
   };
 
   return (
@@ -139,14 +106,14 @@ const NewProductForm = () => {
                   htmlFor="price"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Number of them in stock
+                  Quantity in stock
                 </label>
                 <input
                   {...register("inStock", { required: true, min: 0 })}
                   min={1}
                   type="number"
                   className="block w-full  rounded-md border border-gray-300  p-2 focus:border-mainPink focus:ring-indigo-500 sm:text-sm"
-                  placeholder="0.00"
+                  placeholder="0"
                 />
                 {errors?.inStock && (
                   <span className="text-red-500 text-xs">

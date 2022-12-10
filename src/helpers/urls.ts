@@ -3,7 +3,7 @@ export const baseUrl: string = "http://139.144.173.250:4000/api/v1/";
 
 export const URL = {
   getProducts: "products/",
-  createProduct: "products/create-product",
+  createProduct: "products/create-productz",
   signIn: "auth/signin",
   signup: "auth/signup",
 };
