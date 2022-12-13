@@ -34,7 +34,7 @@ export const cartSlice = createSlice({
     },
     addToCart: (state, { payload }: PayloadAction<any>) => {
       const isAlreadyAdded = state.cartItems.find(
-        (item) => payload.id === item.id
+        (item) => payload._id === item._id
       );
 
       console.log(isAlreadyAdded);
@@ -54,7 +54,7 @@ export const cartSlice = createSlice({
 
     removeFromCart: (state, { payload }: PayloadAction<any>) => {
       const newCartItems = state.cartItems.filter(
-        (item) => item.id !== payload.id
+        (item) => item._id !== payload._id
       );
       state.cartItems = newCartItems;
       state.total = calculateTotal(state);
