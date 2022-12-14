@@ -35,7 +35,7 @@ const usePayment = ({ name, location, phone, landmark, email }: Props) => {
   const onSuccess = () => {
     const makeRequest = async () => {
       const response = await axios.post(
-        "http://localhost:4000/api/v1/orders/create-order",
+        "http://139.144.173.250:4000/api/v1/orders/create-order",
         {
           data: orderData,
         }
