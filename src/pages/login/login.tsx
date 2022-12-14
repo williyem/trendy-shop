@@ -1,7 +1,5 @@
-import axios from "axios";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { apiAxios } from "../../helpers/api";
 
 type Inputs = {
   email: string;
@@ -12,7 +10,6 @@ const Login: React.FC = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {};

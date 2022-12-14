@@ -26,7 +26,6 @@ function App() {
           <Route element={<PageWrapper />}>
             <Route path="/" element={<StoreFront />} />
             <Route path="/products" element={<Products />} />
-            {/* <Route path="/product/:id" element={<ProductOverview />} /> */}
             <Route path="/" element={<HeroSection />} />
             <Route path="/product" element={<ProductOverview />} />
             <Route path="/checkout" element={<Checkout />} />

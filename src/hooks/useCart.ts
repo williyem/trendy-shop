@@ -8,7 +8,7 @@ const useCart = () => {
   return {
     cartItems,
     cartLength: cartItems?.length,
-    total: total,
+    total,
   };
 };
 

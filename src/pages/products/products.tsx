@@ -25,7 +25,7 @@ const Products: React.FC = () => {
     };
 
     fetchProducts();
-  }, [categoryName]);
+  }, [categoryName, dispatch]);
 
   return (
     <div className="bg-white md:min-h-[350px] 2xl:md:min-h-[650px]">

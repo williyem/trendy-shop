@@ -15,7 +15,7 @@ const AdminProductsComponent = () => {
     };
 
     fetchProducts();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>

@@ -1,16 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { errorToast, successToast } from "../../components/toastify/toastify";
+import { PRODUCT } from "../../types/product.type";
 
 interface ICart {
-  cartItems: any[];
+  cartItems: PRODUCT[] | null;
   openCart: boolean;
   length: number;
   total: number;
 }
 
 const initialState: ICart = {
-  cartItems: [],
+  cartItems: null,
   openCart: false,
   length: 0,
   total: 0,
@@ -33,16 +34,17 @@ export const cartSlice = createSlice({
       state.total = calculateTotal(state);
     },
     addToCart: (state, { payload }: PayloadAction<any>) => {
-      const isAlreadyAdded = state.cartItems.find(
+      const isAlreadyAdded = state.cartItems?.find(
         (item) => payload._id === item._id
       );
 
       if (!isAlreadyAdded) {
-        const newCartItem = { ...payload, quantity: 1 };
-        state.cartItems = [newCartItem, ...state.cartItems];
+        const newCartItem = { ...payload };
+        // state.cartItems = [newCartItem, ...state.cartItems];
         // state.totalcalculateTotal()
-        state.total = calculateTotal(state);
-        successToast("Added To Cart");
+        // state.cartItems = state?.cartItems?.push(newCartItem) ?? null;
+        // state.total = calculateTotal(state);
+        // successToast("Added To Cart");
 
         return;
       }
@@ -51,11 +53,14 @@ export const cartSlice = createSlice({
     },
 
     removeFromCart: (state, { payload }: PayloadAction<any>) => {
-      const newCartItems = state.cartItems.filter(
+      const newCartItems = state.cartItems?.filter(
         (item) => item._id !== payload._id
       );
-      state.cartItems = newCartItems;
+      state.cartItems = newCartItems ?? null;
       state.total = calculateTotal(state);
+    },
+    clearCart: (state) => {
+      state.cartItems = null;
     },
     showCart: (state, { payload }) => {
       state.openCart = payload;

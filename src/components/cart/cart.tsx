@@ -79,11 +79,11 @@ export default function Cart({ open, setOpen }: props) {
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul className="-my-6 divide-y divide-gray-200">
-                            {cartItems.map((product) => (
-                              <li key={product.id} className="flex py-6">
+                            {cartItems?.map((product) => (
+                              <li key={product?._id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
-                                    src={product?.photos[0]}
+                                    src={product?.photos?.[0]}
                                     alt={product.description}
                                     className="h-full w-full object-cover object-center"
                                   />
@@ -98,15 +98,18 @@ export default function Cart({ open, setOpen }: props) {
                                         </a>
                                       </h3>
                                       <p className="ml-4">
-                                        GHS {parseInt(product.price).toFixed(2)}
+                                        GHS{" "}
+                                        {parseInt(
+                                          String(product?.price)
+                                        ).toFixed(2)}
                                       </p>
                                     </div>
                                     <p className="mt-1 text-sm text-gray-500">
-                                      {product.category}
+                                      {product?.category}
                                     </p>
                                   </div>
                                   <div className="flex flex-1 items-end justify-between text-sm">
-                                    <p className="text-gray-700 ">
+                                    {/* <p className="text-gray-700 ">
                                       Qty{" "}
                                       <select
                                         value={product?.quantity}
@@ -154,7 +157,7 @@ export default function Cart({ open, setOpen }: props) {
                                           );
                                         })}
                                       </select>
-                                    </p>
+                                    </p> */}
 
                                     <div className="flex">
                                       <button
@@ -185,7 +188,7 @@ export default function Cart({ open, setOpen }: props) {
                         Delivery Fee yet to be added
                       </p>
                       <button
-                        disabled={cartItems.length === 0}
+                        disabled={cartItems?.length === 0}
                         className="mt-6 disabled:bg-gray-500 disabled:cursor-not-allowed w-full flex items-center justify-center rounded-md border border-transparent bg-mainPink px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-deepPink "
                         onClick={() => {
                           navigate("/checkout");

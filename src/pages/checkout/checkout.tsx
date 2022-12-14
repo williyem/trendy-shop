@@ -4,6 +4,7 @@ import useCart from "../../hooks/useCart";
 import usePayment from "../../hooks/usePayment";
 import { useAppDispatch } from "../../redux/hooks";
 import { removeFromCart, setCart } from "../../redux/slices/cart-slice";
+import { PRODUCT } from "../../types/product.type";
 
 export default function Checkout() {
   const {
@@ -143,11 +144,11 @@ export default function Checkout() {
 
                 <div className="mt-4 bg-white border border-gray-200 rounded-lg shadow-sm">
                   <ul className="divide-y divide-gray-200 sm:max-w-[90%] mx-auto">
-                    {cartItems.map((product) => (
-                      <li key={product.id} className="flex py-6">
+                    {cartItems?.map((product: PRODUCT) => (
+                      <li key={product?._id} className="flex py-6">
                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                           <img
-                            src={product?.photos[0]}
+                            src={product?.photos?.[0]}
                             alt={product.description}
                             className="h-full w-full object-cover object-center"
                           />
@@ -157,10 +158,11 @@ export default function Checkout() {
                           <div>
                             <div className="flex justify-between text-base font-medium text-gray-900">
                               <h3>
-                                <a href={product.href}>{product.name}</a>
+                                <a href={product?.href}>{product.name}</a>
                               </h3>
                               <p className="ml-4">
-                                GHS {parseInt(product.price).toFixed(2)}
+                                GHS{" "}
+                                {parseInt(String(product?.price))?.toFixed(2)}
                               </p>
                             </div>
                             <p className="mt-1 text-sm text-gray-500">
@@ -168,7 +170,7 @@ export default function Checkout() {
                             </p>
                           </div>
                           <div className="flex flex-1 items-end justify-between text-sm">
-                            <p className="text-gray-700 ">
+                            {/* <p className="text-gray-700 ">
                               Qty{" "}
                               <select
                                 value={product?.quantity}
@@ -210,7 +212,7 @@ export default function Checkout() {
                                   );
                                 })}
                               </select>
-                            </p>
+                            </p> */}
 
                             <div className="flex">
                               <button

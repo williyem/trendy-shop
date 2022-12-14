@@ -6,7 +6,7 @@ export const tableOptions = [
     Header: "Photo",
     accessor: "photos",
     Cell: ({ value }) => {
-      return <img src={value[0]} className="w-10 h-10 rounded-full" />;
+      return <img src={value[0]} className="w-10 h-10 rounded-full" alt="" />;
     },
   },
   { Header: "Name", accessor: "name" },
