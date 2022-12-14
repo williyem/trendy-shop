@@ -15,7 +15,6 @@ const Products: React.FC = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
 
-
   const categoryName = location?.state?.categoryName ?? null;
 
   useEffect(() => {
@@ -24,7 +23,6 @@ const Products: React.FC = () => {
         ? dispatch(getProductByCategory(categoryName))
         : dispatch(getProductByCategory(""));
     };
-    console.log("products", products.length);
 
     fetchProducts();
   }, [categoryName]);

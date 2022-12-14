@@ -15,7 +15,7 @@ const NewProductForm = () => {
   const dispatch = useAppDispatch();
   const fileInputRef = useRef<any>(null);
   const processFiles = (e: any) => {
-    console.log("e", fileInputRef.current?.files.length);
+    // console.log("e", fileInputRef.current?.files.length);
     let filterArr = fileArr.filter((item: any) => item);
     let files = [...fileArr, fileInputRef?.current?.files];
     fileInputRef.current?.files.length > 0 && setFileArr(files);
@@ -30,7 +30,7 @@ const NewProductForm = () => {
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setFormData(data);
-    console.log(fileArr);
+    // console.log(fileArr);
 
     const promises: any = [];
     let count = 0;

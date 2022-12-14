@@ -1,15 +1,26 @@
-// import NewProductBtn from "./components/NewProductBtn";
+import { useEffect } from "react";
 import Table from "../../../components/Table/table";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { getProductByCategory } from "../../../redux/slices/products-slice";
 import NewProductBtn from "./components/new-product-btn";
-// import { tableOptions } from "./data";
-
-export const tableOptions = [{ header: "ID", accessor: "id" }];
+import { tableOptions } from "./data";
 
 const AdminProductsComponent = () => {
+  const { products, loading } = useAppSelector((state) => state.products);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      dispatch(getProductByCategory(""));
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <div>
       <NewProductBtn />
-      <Table loading={false} data={[]} columns={tableOptions} />
+      <Table loading={loading} data={products ?? []} columns={tableOptions} />
     </div>
   );
 };
