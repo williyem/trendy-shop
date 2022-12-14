@@ -1,37 +1,90 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import FileList from "./file-list";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../../../firebase/firebase-config";
-import {
-  errorToast,
-  successToast,
-} from "../../../../components/toastify/toastify";
+import { errorToast } from "../../../../components/toastify/toastify";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { createProduct, Inputs } from "../../../../redux/slices/products-slice";
-// import ButtonLoader from "../../../../components/button-loader/button-loader";
 import { removeItem } from "../../../../helpers/easy";
-import { uploadImage } from "../../../../firebase/firebaseStorage";
 
 const NewProductForm = () => {
   const [fileArr, setFileArr] = useState<any>([]);
   const [urls, setUrls] = useState<any>([]);
+  const [formData, setFormData] = useState<any>({});
   const dispatch = useAppDispatch();
   const fileInputRef = useRef<any>(null);
   const processFiles = (e: any) => {
+    console.log("e", fileInputRef.current?.files.length);
+    let filterArr = fileArr.filter((item: any) => item);
     let files = [...fileArr, fileInputRef?.current?.files];
-    setFileArr(files);
+    fileInputRef.current?.files.length > 0 && setFileArr(files);
   };
 
+  const [trigger, setTrigger] = useState<any>(false);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    // await dispatch(createProduct({ ...data, photos: urls }));
-    // setUrls([]);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setFormData(data);
+    console.log(fileArr);
+
+    const promises: any = [];
+    let count = 0;
+    fileArr?.map((image: any) => {
+      const productsRef = ref(storage, `products/${image[0].name}`);
+      const uploadTask = uploadBytesResumable(productsRef, image[0]);
+      promises.push(uploadTask);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          console.log("Upload is " + progress + "% done");
+        },
+        (error) => {
+          console.log(error);
+        },
+        async () => {
+          await getDownloadURL(uploadTask?.snapshot.ref)
+            .then((downloadURL) => {
+              count++;
+              setUrls((prevState: any) => [...prevState, downloadURL]);
+            })
+            .then(() => {
+              if (count === fileArr.length) {
+                setTrigger(true);
+              }
+            });
+        }
+      );
+    });
+
+    Promise.all(promises)
+      .then(() => {})
+      .catch((err) => errorToast("failed to upload images"))
+      .finally(() => {});
   };
+  useEffect(() => {
+    console.log("fileArr: " + [...fileArr]);
+    trigger &&
+      dispatch(createProduct({ ...formData, photos: urls }))
+        .unwrap()
+        .then((response: any) => {
+          console.log("success cke");
+          reset();
+          fileArr(null);
+        })
+        .finally(() => {
+          setTrigger(false);
+          console.log("finally fileArr", ...fileArr);
+          setUrls([]);
+        });
+  }, [trigger]);
 
   return (
     <div className="">
@@ -153,20 +206,23 @@ const NewProductForm = () => {
                 </div>
                 <div className="mt-1 relative bg-gray-100 px-3 pt-5 pb-5 border-2 border-gray-300 border-dashed rounded-md">
                   <div className="space-y-1">
-                    {fileArr.map((file: any, index: number) => {
-                      return (
-                        <span key={index}>
-                          {/* <span>{file[0].name}</span> */}
-                          <FileList
-                            fileName={file[0].name}
-                            index={index}
-                            removeItem={(e) =>
-                              removeItem(e, fileArr, setFileArr)
-                            }
-                          />
-                        </span>
-                      );
-                    })}
+                    {fileArr.length > 0 &&
+                      fileArr.map((file: any, index: number) => {
+                        console.log("fil: " + file[0]?.name);
+                        return file[0]?.name ? (
+                          <span key={index}>
+                            <FileList
+                              fileName={file[0]?.name}
+                              index={index}
+                              removeItem={(e) =>
+                                removeItem(e, fileArr, setFileArr)
+                              }
+                            />
+                          </span>
+                        ) : (
+                          <span></span>
+                        );
+                      })}
 
                     <input
                       type="file"
