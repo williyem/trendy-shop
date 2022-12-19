@@ -1,33 +1,24 @@
-// import Table from "../../components/Table/table";
-// import useFetchOrders from "../../hooks/useFetchOrders";
+import { useEffect } from "react";
 import Table from "../../../components/Table/table";
-// import { tableOptions } from "./data";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { getOrders } from "../../../redux/slices/order-slice";
+import { tableOptions } from "./data";
 
-export const tableOptions = [
-  { Header: "ID", accessor: "id" },
-  { Header: "Recipient Name", accessor: "name" },
-  { Header: "Recipient Phone", accessor: "phone" },
-  { Header: "Status", accessor: "status" },
-  { Header: "Date", accessor: "createdAt" },
-  {
-    Header: "Total Price",
-    accessor: "totalPrice",
-    Cell: (data: any) => {
-      return <span>GH₵ {data?.value}</span>;
-    },
-  },
-  { Header: "Total QTY", accessor: "" },
-  { Header: "Actions", accessor: "", Cell: () => {} },
-];
+const AdminOrdersComponent = () => {
+  const dispatch = useAppDispatch();
+  const { loading, orders } = useAppSelector((state) => state.orders);
 
-type Props = {};
+  useEffect(() => {
+    const fetchOrders = async () => {
+      dispatch(getOrders());
+    };
 
-const AdminOrdersComponent = (props: Props) => {
-  // const { orders, loading } = useFetchOrders();
+    fetchOrders();
+  }, [dispatch]);
 
   return (
     <div>
-      <Table loading={false} data={[]} columns={tableOptions} />
+      <Table loading={loading} data={orders} columns={tableOptions} />
     </div>
   );
 };

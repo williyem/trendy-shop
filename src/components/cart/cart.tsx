@@ -79,7 +79,7 @@ export default function Cart({ open, setOpen }: props) {
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul className="-my-6 divide-y divide-gray-200">
-                            {cartItems?.map((product) => (
+                            {cartItems?.map((product: any) => (
                               <li key={product?._id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
@@ -98,10 +98,10 @@ export default function Cart({ open, setOpen }: props) {
                                         </a>
                                       </h3>
                                       <p className="ml-4">
-                                        GHS{" "}
-                                        {parseInt(
+                                        GHS {parseInt(String(product?.price))}
+                                        {/* {parseInt(
                                           String(product?.price)
-                                        ).toFixed(2)}
+                                        ).toFixed(2)} */}
                                       </p>
                                     </div>
                                     <p className="mt-1 text-sm text-gray-500">
@@ -182,7 +182,8 @@ export default function Cart({ open, setOpen }: props) {
                     <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>GHS {total.toFixed(2)}</p>
+                        {/* <p>GHS {total.toFixed(2)}</p> */}
+                        <p>GHS {total}</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">
                         Delivery Fee yet to be added

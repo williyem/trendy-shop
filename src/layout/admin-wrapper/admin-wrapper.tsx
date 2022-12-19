@@ -320,7 +320,7 @@ const AdminWrapper = () => {
 
           <main className="flex-1 bg-[#F3F4F6]">
             <div className="py-2">
-              <div className="max-w-7xl   min-h-screen mx-auto px-4 sm:px-6 md:px-8">
+              <div className="max-w-7xl   min-h-screen mx-auto px-4">
                 <Outlet />
               </div>
             </div>

@@ -16,7 +16,7 @@ const usePayment = ({ name, location, phone, landmark, email }: Props) => {
   const { cartItems, total } = useCart();
   const config: any = {
     reference: new Date().getTime().toString(),
-    email: "user@example.com",
+    email,
     amount: total * 100,
     publicKey: "pk_test_85e230e7de9474a347f14097497dec1cf914f0ab",
     currency: ["GHS"],

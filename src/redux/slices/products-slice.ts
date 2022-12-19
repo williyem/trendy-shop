@@ -31,6 +31,7 @@ export const getProducts: any = createAsyncThunk(
     }
   }
 );
+
 export const getProductByCategory: any = createAsyncThunk(
   "get-products-by-id",
   async (id, { rejectWithValue }) => {
@@ -42,6 +43,7 @@ export const getProductByCategory: any = createAsyncThunk(
     }
   }
 );
+
 export const createProduct: any = createAsyncThunk(
   "create-product",
   async (data, { rejectWithValue }) => {
@@ -84,15 +86,16 @@ export const productSlice = createSlice({
     builder.addCase(getProducts.pending, (state) => {
       state.loading = true;
     });
+
     builder.addCase(getProducts.fulfilled, (state, { payload }) => {
       if (!!payload && payload?.data?.status === 200) {
-        console.log("payload", payload);
         state.products = payload?.data;
       } else {
         errorToast(errorMessage);
       }
       state.loading = false;
     });
+
     builder.addCase(getProducts.rejected, (state) => {
       state.loading = false;
       errorToast(errorMessage);
@@ -104,7 +107,6 @@ export const productSlice = createSlice({
     });
 
     builder.addCase(getProductByCategory.fulfilled, (state, { payload }) => {
-      console.log("payload", payload);
       if (!!payload && payload?.status === 200) {
         state.products = payload.data;
       } else {
@@ -121,7 +123,6 @@ export const productSlice = createSlice({
       state.crudLoading = true;
     });
     builder.addCase(createProduct.fulfilled, (state, { payload }) => {
-      // console.log("payload", payload);
       // if (!!payload && payload?.status === 200) {
       //   state.selectedProduct = payload.data;
       // } else {

@@ -159,7 +159,8 @@ const ProductOverview = () => {
               </div>
               <div className="flex">
                 <span className="title-font font-medium text-2xl text-gray-900">
-                  GHS {parseFloat(product?.price)?.toFixed(2)}
+                  {/* GHS {parseFloat(product?.price)?.toFixed(2)} */}
+                  GHS {parseFloat(product?.price)}
                 </span>
                 <button
                   disabled={product?.inStock === 0}

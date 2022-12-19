@@ -3,7 +3,7 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import useCart from "../../hooks/useCart";
 import usePayment from "../../hooks/usePayment";
 import { useAppDispatch } from "../../redux/hooks";
-import { removeFromCart, setCart } from "../../redux/slices/cart-slice";
+import { removeFromCart } from "../../redux/slices/cart-slice";
 import { PRODUCT } from "../../types/product.type";
 
 export default function Checkout() {
@@ -20,7 +20,15 @@ export default function Checkout() {
   const location = watch("input.location");
   const phone = watch("input.phone");
   const landmark = watch("input.landMark");
-  const { makePayment } = usePayment({ name, location, phone, landmark });
+  const email = watch("input.email");
+
+  const { makePayment } = usePayment({
+    name,
+    location,
+    phone,
+    landmark,
+    email,
+  });
 
   const onSubmit = () => {
     makePayment();
@@ -72,7 +80,7 @@ export default function Checkout() {
                           {...register("input.email", {
                             required: "Required",
                           })}
-                          type="text"
+                          type="email"
                           className="block w-full  border-b border-gray-600  shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
                         <ErrorMessage errors={errors} name="input.email" />
@@ -234,7 +242,8 @@ export default function Checkout() {
                     <div className="flex items-center justify-between border-t border-gray-200 pt-6">
                       <dt className="text-base font-medium">Total</dt>
                       <dd className="text-base font-medium text-gray-900">
-                        GH₵ {total.toFixed(2)}
+                        GH₵ {total}
+                        {/* GH₵ {total.toFixed(2)} */}
                       </dd>
                     </div>
                   </dl>
