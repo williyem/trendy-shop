@@ -56,6 +56,20 @@ export const createProduct: any = createAsyncThunk(
   }
 );
 
+export const deleteProduct: any = createAsyncThunk(
+  "delete-product",
+  async (data: any, { rejectWithValue }) => {
+    try {
+      const response = await apiAxios.delete(
+        `${URL.deleteProduct}/${data?.productId}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
   products: [],
   selectedProduct: {},

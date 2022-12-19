@@ -5,6 +5,7 @@ export const URL = {
   getProducts: "products/",
   getOrders: "orders/",
   createProduct: "products/create-product",
+  deleteProduct: "products",
   changeOrderStatus: "orders/change-status",
   signIn: "auth/signin",
   signup: "auth/signup",

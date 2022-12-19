@@ -1,9 +1,39 @@
 import { TrashIcon } from "@heroicons/react/outline";
-import { Modal } from "antd";
+import { Modal, notification } from "antd";
 import { useState } from "react";
+import { useAppDispatch } from "../../../../redux/hooks";
+import {
+  deleteProduct,
+  getProductByCategory,
+} from "../../../../redux/slices/products-slice";
+import { PRODUCT } from "../../../../types/product.type";
 
-const DeleteBtn = ({ data }: any) => {
+type IProps = {
+  product: PRODUCT;
+};
+
+const DeleteBtn = ({ product }: IProps) => {
+  const dispatch = useAppDispatch();
+  const [deleteProductLoading, setDeleteProductLoading] =
+    useState<boolean>(false);
+
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+  const handleDeleteProduct = () => {
+    setDeleteProductLoading(true);
+    dispatch(deleteProduct({ productId: product?._id }))
+      .unwrap()
+      .then((data: any) => {
+        if (data?.data) {
+          dispatch(getProductByCategory(""));
+          setDeleteProductLoading(false);
+          notification.success({
+            message: "product deleted successfully",
+          });
+          setOpenDeleteModal(false);
+        }
+      });
+  };
 
   return (
     <>
@@ -23,16 +53,21 @@ const DeleteBtn = ({ data }: any) => {
       >
         <div>
           <h1 className="font-semi-bold text-xl">
-            Are you sure you want to delete this {data?.row?.original?.name} ?
+            Are you sure you want to delete this {product?.name} ?
           </h1>
 
           <div className="flex space-x-3 justify-end mt-4">
-            <button className="bg-red-600 text-white rounded-md py-2 px-6">
+            <button
+              disabled={deleteProductLoading}
+              onClick={handleDeleteProduct}
+              className="bg-red-600 text-white rounded-md py-2 px-6 disabled:bg-gray-400"
+            >
               Yes
             </button>
             <button
+              disabled={deleteProductLoading}
               onClick={() => setOpenDeleteModal(false)}
-              className="bg-blue-600 text-white rounded-md py-2 px-6"
+              className="bg-blue-600 text-white rounded-md py-2 px-6 disabled:bg-gray-400"
             >
               No
             </button>

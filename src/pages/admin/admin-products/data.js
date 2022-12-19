@@ -36,7 +36,7 @@ export const tableOptions = [
           >
             <PencilAltIcon className="w-5 h-5" />
           </button>
-          <DeleteBtn data={data} />
+          <DeleteBtn product={data?.row?.original} />
         </div>
       );
     },
