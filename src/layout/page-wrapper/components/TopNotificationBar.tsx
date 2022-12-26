@@ -24,7 +24,7 @@ const TopNotificationBar = ({ setShowTopNotificationBar }: Props) => {
         <div>
           {/* <span className="h-6 w-px bg-gray-600" aria-hidden="true" /> */}
           <span className="text-sm font-medium text-white hover:text-gray-200 cursor-pointer">
-            <a href="/login">Sign in</a>
+            {/* <a href="/login">Sign in</a> */}
           </span>
         </div>
       </div>

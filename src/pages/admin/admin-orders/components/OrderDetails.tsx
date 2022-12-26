@@ -50,11 +50,11 @@ const OrderDetails = ({ order, setOpenDrawer }: Iprops) => {
           <div className="bg-white px-4 py-5 sm:gap-4">
             {order?.items?.map((product: any) => (
               <li key={product?._id} className="flex py-6">
-                <div className="h-18 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                <div className="h-12 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                   <img
                     src={product?.photos?.[0]}
                     alt={product.description}
-                    className="h-full w-full object-cover object-center"
+                    className="object-cover object-center w-full h-full"
                   />
                 </div>
 

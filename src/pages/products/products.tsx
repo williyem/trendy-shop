@@ -1,11 +1,8 @@
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import {
-  getProductByCategory,
-  setProduct,
-} from "../../redux/slices/products-slice";
+import { getProductByCategory } from "../../redux/slices/products-slice";
 
 import Instock from "../../components/in-stock/in-stock";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { addToCart } from "../../redux/slices/cart-slice";
 import { ClapSpinner } from "react-spinners-kit";
@@ -68,16 +65,18 @@ const Products: React.FC = () => {
                         <div className="mt-4 flex justify-between p-2">
                           <div>
                             <h3 className="text-sm text-gray-700">
-                              <a
-                                href={"/product"}
-                                onClick={() => dispatch(setProduct(product))}
+                              <NavLink
+                                to={"/product"}
+                                state={{
+                                  productInfo: product,
+                                }}
                               >
                                 <span
                                   aria-hidden="true"
                                   className="absolute inset-0"
                                 />
                                 {product.name}
-                              </a>
+                              </NavLink>
                             </h3>
                             <div className="mt-1 text-sm text-gray-700 font-medium flex hover:underline">
                               <Instock product={product} />

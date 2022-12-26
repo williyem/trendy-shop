@@ -1,195 +1,276 @@
-import Instock from "../../components/in-stock/in-stock";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { addToCart } from "../../redux/slices/cart-slice";
+import { useState } from "react";
+import { Disclosure, RadioGroup, Tab } from "@headlessui/react";
+import { StarIcon } from "@heroicons/react/solid";
+import { HeartIcon, MinusSmIcon, PlusSmIcon } from "@heroicons/react/outline";
+import { useLocation } from "react-router-dom";
 
-const ProductOverview = () => {
-  const { selectedProduct: product } = useAppSelector(
-    (state: any) => state.products
-  );
-  const dispatch = useAppDispatch();
-
-  return (
-    <>
-      <section className="text-gray-600 body-font overflow-hidden">
-        <div className="container px-5 py-24 mx-auto">
-          <div className="lg:w-4/5 mx-auto flex flex-wrap">
-            <img
-              alt="ecommerce"
-              className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
-              src={product?.photos[0]}
-            />
-            <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                {product?.category}
-              </h2>
-              <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                {product?.name}
-              </h1>
-              <Instock product={product} />
-              {/* <div className="flex mb-4">
-                <span className="flex items-center">
-                  <svg
-                    fill="currentColor"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    className="w-4 h-4 text-mainPink"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                  </svg>
-                  <svg
-                    fill="currentColor"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    className="w-4 h-4 text-mainPink"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                  </svg>
-                  <svg
-                    fill="currentColor"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    className="w-4 h-4 text-mainPink"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                  </svg>
-                  <svg
-                    fill="currentColor"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    className="w-4 h-4 text-mainPink"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                  </svg>
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    className="w-4 h-4 text-mainPink"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                  </svg>
-                  <span className="text-gray-600 ml-3">4 Reviews</span>
-                </span>
-                <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
-                  <span className="text-gray-500">
-                    <svg
-                      fill="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      className="w-5 h-5"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-                    </svg>
-                  </span>
-                  <span className="text-gray-500">
-                    <svg
-                      fill="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      className="w-5 h-5"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
-                    </svg>
-                  </span>
-                  <span className="text-gray-500">
-                    <svg
-                      fill="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      className="w-5 h-5"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-                    </svg>
-                  </span>
-                </span>
-              </div> */}
-              <p className="leading-relaxed mt-2">{product?.description}</p>
-              <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
-                {/* <div className="flex">
-                  <span className="mr-3">Color</span>
-                  <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"></button>
-                  <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button>
-                  <button className="border-2 border-gray-300 ml-1 bg-mainPink rounded-full w-6 h-6 focus:outline-none"></button>
-                </div> */}
-                {/* <div className="flex ml-6 items-center">
-                  <span className="mr-3">Size</span>
-                  <div className="relative">
-                    <select className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-mainPink text-base pl-3 pr-10">
-                      <option>SM</option>
-                      <option>M</option>
-                      <option>L</option>
-                      <option>XL</option>
-                    </select>
-                    <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
-                      <svg
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        className="w-4 h-4"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M6 9l6 6 6-6"></path>
-                      </svg>
-                    </span>
-                  </div>
-                </div> */}
-              </div>
-              <div className="flex">
-                <span className="title-font font-medium text-2xl text-gray-900">
-                  {/* GHS {parseFloat(product?.price)?.toFixed(2)} */}
-                  GHS {parseFloat(product?.price)}
-                </span>
-                <button
-                  disabled={product?.inStock === 0}
-                  onClick={() => {
-                    dispatch(addToCart(product));
-                  }}
-                  className="flex ml-auto text-white bg-mainPink border-0 py-2 px-6 focus:outline-none hover:bg-deepPink rounded"
-                >
-                  {product?.inStock === 0 ? "Out of stock" : "Add to cart"}
-                </button>
-                {/* <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
-                  <svg
-                    fill="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
-                  </svg>
-                </button> */}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
-  );
+const product = {
+  name: "Zip Tote Basket",
+  price: 140,
+  rating: 4,
+  images: [
+    {
+      id: 1,
+      name: "Angled view",
+      src: "https://tailwindui.com/img/ecommerce-images/product-page-03-product-01.jpg",
+      alt: "Angled front view with bag zipped and handles upright.",
+    },
+  ],
+  colors: [
+    {
+      name: "Washed Black",
+      bgColor: "bg-gray-700",
+      selectedColor: "ring-gray-700",
+    },
+    { name: "White", bgColor: "bg-white", selectedColor: "ring-gray-400" },
+    {
+      name: "Washed Gray",
+      bgColor: "bg-gray-500",
+      selectedColor: "ring-gray-500",
+    },
+  ],
+  description: `
+    <p></p>
+  `,
+  details: [
+    {
+      name: "Features",
+      items: [
+        "Multiple strap configurations",
+        "Spacious interior with top zip",
+        "Leather handle and tabs",
+        "Interior dividers",
+        "Stainless strap loops",
+        "Double stitched construction",
+        "Water-resistant",
+      ],
+    },
+    // More sections...
+  ],
 };
 
-export default ProductOverview;
+function classNames(...classes: any) {
+  return classes.filter(Boolean).join(" ");
+}
+
+export default function Produc() {
+  const location = useLocation();
+
+  const productInfo = location.state.productInfo;
+  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
+  const [selectedImage, setSelectedImage] = useState<string>(
+    productInfo?.photos[0]
+  );
+
+  return (
+    <div className="bg-white">
+      <div className="max-w-2xl mx-auto py-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
+          <Tab.Group as="div" className="flex flex-col-reverse">
+            <div className="hidden mt-6 w-full max-w-2xl mx-auto sm:block lg:max-w-none">
+              <Tab.List className="grid grid-cols-4 gap-6">
+                {productInfo?.photos.map((imageLink: string) => (
+                  <span
+                    onClick={() => setSelectedImage(imageLink)}
+                    key={imageLink}
+                    className={`${
+                      selectedImage === imageLink
+                        ? "border border-mainPink"
+                        : ""
+                    } shadow relative h-24 bg-white rounded-md flex items-center justify-center text-sm font-medium uppercase text-gray-900 cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-offset-4 focus:ring-opacity-50`}
+                  >
+                    <>
+                      <span className="absolute inset-0 rounded-md overflow-hidden">
+                        <img
+                          src={imageLink}
+                          alt=""
+                          className="w-full h-full object-center object-cover p-1"
+                        />
+                      </span>
+                    </>
+                  </span>
+                ))}
+              </Tab.List>
+            </div>
+
+            <Tab.Panels className="w-full aspect-w-1 aspect-h-1">
+              <Tab.Panel>
+                <img
+                  src={selectedImage}
+                  alt={productInfo?.photos[0]}
+                  className="w-full h-[400px] object-center object-cover sm:rounded-lg"
+                />
+              </Tab.Panel>
+            </Tab.Panels>
+          </Tab.Group>
+
+          {/* Product info */}
+          <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
+            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
+              {productInfo?.name}
+            </h1>
+
+            <div className="mt-3">
+              <h2 className="sr-only">Product information</h2>
+              <p className="text-3xl text-gray-900">GH₵ {productInfo.price}</p>
+            </div>
+
+            {/* Reviews */}
+            <div className="mt-3">
+              <h3 className="sr-only">Reviews</h3>
+              <div className="flex items-center">
+                <div className="flex items-center">
+                  {[0, 1, 2, 3, 4].map((rating) => (
+                    <StarIcon
+                      key={rating}
+                      className={classNames(
+                        product.rating > rating
+                          ? "text-indigo-500"
+                          : "text-gray-300",
+                        "h-5 w-5 flex-shrink-0"
+                      )}
+                      aria-hidden="true"
+                    />
+                  ))}
+                </div>
+                <p className="sr-only">{product.rating} out of 5 stars</p>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <h3 className="sr-only">Description</h3>
+
+              {/* <div
+                className="text-base text-gray-700 space-y-6"
+                dangerouslySetInnerHTML={{ __html: product.description }}
+              /> */}
+              <p>
+                The Zip Tote Basket is the perfect midpoint between shopping
+                tote and comfy backpack. With convertible straps, you can hand
+                carry, should sling, or backpack this convenient and spacious
+                bag. The zip top and durable canvas construction keeps your
+                goods protected for all-day use.
+              </p>
+            </div>
+
+            <form className="mt-6">
+              {/* Colors */}
+              <div>
+                <h3 className="text-sm text-gray-600">Color</h3>
+
+                <RadioGroup
+                  value={selectedColor}
+                  onChange={setSelectedColor}
+                  className="mt-2"
+                >
+                  <RadioGroup.Label className="sr-only">
+                    Choose a color
+                  </RadioGroup.Label>
+                  <div className="flex items-center space-x-3">
+                    {product.colors.map((color) => (
+                      <RadioGroup.Option
+                        key={color.name}
+                        value={color}
+                        className={({ active, checked }) =>
+                          classNames(
+                            color.selectedColor,
+                            active && checked ? "ring ring-offset-1" : "",
+                            !active && checked ? "ring-2" : "",
+                            "-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none"
+                          )
+                        }
+                      >
+                        <RadioGroup.Label as="p" className="sr-only">
+                          {color.name}
+                        </RadioGroup.Label>
+                        <span
+                          aria-hidden="true"
+                          className={classNames(
+                            color.bgColor,
+                            "h-8 w-8 border border-black border-opacity-10 rounded-full"
+                          )}
+                        />
+                      </RadioGroup.Option>
+                    ))}
+                  </div>
+                </RadioGroup>
+              </div>
+
+              <div className="mt-10 flex sm:flex-col1">
+                <button
+                  type="submit"
+                  className="max-w-xs flex-1 hover:bg-pink-800 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white bg-mainPink focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
+                >
+                  Add to cart
+                </button>
+
+                <button
+                  type="button"
+                  className="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500"
+                >
+                  <HeartIcon
+                    className="h-6 w-6 flex-shrink-0"
+                    aria-hidden="true"
+                  />
+                  <span className="sr-only">Add to favorites</span>
+                </button>
+              </div>
+            </form>
+
+            <section aria-labelledby="details-heading" className="mt-12">
+              <h2 id="details-heading" className="sr-only">
+                Additional details
+              </h2>
+
+              <div className="border-t divide-y divide-gray-200">
+                {product.details.map((detail) => (
+                  <Disclosure as="div" key={detail.name}>
+                    {({ open }) => (
+                      <>
+                        <h3>
+                          <Disclosure.Button className="group relative w-full py-6 flex justify-between items-center text-left">
+                            <span
+                              className={classNames(
+                                open ? "text-indigo-600" : "text-gray-900",
+                                "text-sm font-medium"
+                              )}
+                            >
+                              {detail.name}
+                            </span>
+                            <span className="ml-6 flex items-center">
+                              {open ? (
+                                <MinusSmIcon
+                                  className="block h-6 w-6 text-indigo-400 group-hover:text-indigo-500"
+                                  aria-hidden="true"
+                                />
+                              ) : (
+                                <PlusSmIcon
+                                  className="block h-6 w-6 text-gray-400 group-hover:text-gray-500"
+                                  aria-hidden="true"
+                                />
+                              )}
+                            </span>
+                          </Disclosure.Button>
+                        </h3>
+                        <Disclosure.Panel
+                          as="div"
+                          className="pb-6 prose prose-sm"
+                        >
+                          <ul>
+                            {detail.items.map((item) => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </ul>
+                        </Disclosure.Panel>
+                      </>
+                    )}
+                  </Disclosure>
+                ))}
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
