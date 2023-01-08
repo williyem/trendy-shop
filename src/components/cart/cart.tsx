@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useAppDispatch } from "../../redux/hooks";
 import useCart from "../../hooks/useCart";
-import { removeFromCart, setCart } from "../../redux/slices/cart-slice";
+import { removeFromCart } from "../../redux/slices/cart-slice";
 import { useNavigate } from "react-router-dom";
 
 interface props {

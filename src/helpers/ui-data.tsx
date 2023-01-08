@@ -125,11 +125,11 @@ export const categories: Category[] = [
     href: "/products",
     imageSrc: require("../assets/images/accessory.jpg"),
   },
-  {
-    name: "Others",
-    href: "/products",
-    imageSrc: require("../assets/images/shoe.jpg"),
-  },
+  // {
+  //   name: "Others",
+  //   href: "/products",
+  //   imageSrc: require("../assets/images/shoe.jpg"),
+  // },
 ];
 export const collections: Collections[] = [
   {

@@ -16,7 +16,7 @@ const NewProductForm = () => {
   const fileInputRef = useRef<any>(null);
   const processFiles = (e: any) => {
     // console.log("e", fileInputRef.current?.files.length);
-    let filterArr = fileArr.filter((item: any) => item);
+    // let filterArr = fileArr.filter((item: any) => item);
     let files = [...fileArr, fileInputRef?.current?.files];
     fileInputRef.current?.files.length > 0 && setFileArr(files);
   };
@@ -41,10 +41,10 @@ const NewProductForm = () => {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          console.log("Upload is " + progress + "% done");
+          // const progress = Math.round(
+          //   (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          // );
+          // console.log("Upload is " + progress + "% done");
         },
         (error) => {
           console.log(error);
@@ -62,6 +62,8 @@ const NewProductForm = () => {
             });
         }
       );
+
+      return true;
     });
 
     Promise.all(promises)
@@ -84,7 +86,7 @@ const NewProductForm = () => {
           console.log("finally fileArr", ...fileArr);
           setUrls([]);
         });
-  }, [trigger]);
+  }, [trigger, dispatch, fileArr, formData, reset, urls]);
 
   return (
     <div className="">
