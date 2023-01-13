@@ -1,4 +1,4 @@
-import { classNames, currencies } from "../../../helpers/ui-data";
+import { classNames } from "../../../helpers/ui-data";
 
 import { Fragment, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
@@ -6,9 +6,8 @@ import { MenuIcon, ShoppingCartIcon, XIcon } from "@heroicons/react/outline";
 import TopNotificationBar from "./TopNotificationBar";
 import useCart from "../../../hooks/useCart";
 import Cart from "../../../components/cart/cart";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
-// const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']
 const navigation = {
   categories: [
     {
@@ -69,14 +68,13 @@ const navigation = {
   ],
   pages: [
     { name: "All", href: "/products" },
-    { name: "Clothing", href: "/products/clothing" },
-    { name: "Accessories", href: "/products/accessories" },
-    { name: "Others", href: "/products/others" },
-    // { name: "Stores", href: "#" },
+    { name: "Clothing", href: "/products" },
+    { name: "Accessories", href: "/products" },
   ],
 };
 
 export default function Topbar() {
+  const navigate = useNavigate();
   const [showTopNotificationBar, setShowTopNotificationBar] = useState(true);
   const [open, setOpen] = useState<boolean>(false);
   const [showCart, setShowCart] = useState<boolean>(false);
@@ -87,7 +85,6 @@ export default function Topbar() {
     <>
       <Cart open={showCart} setOpen={setShowCart} />
       <div className="bg-transparent z-50 w-full top-0">
-        {/* Mobile menu */}
         <Transition.Root show={open} as={Fragment}>
           <Dialog
             as="div"
@@ -148,173 +145,30 @@ export default function Topbar() {
                       ))}
                     </Tab.List>
                   </div>
-                  <Tab.Panels as={Fragment}>
-                    {navigation.categories.map((category, categoryIdx) => (
-                      <Tab.Panel
-                        key={category.name}
-                        className="px-4 pt-10 pb-6 space-y-12"
-                      >
-                        <div className="grid grid-cols-1 items-start gap-y-10 gap-x-6">
-                          <div className="grid grid-cols-1 gap-y-10 gap-x-6">
-                            <div>
-                              <p
-                                id={`mobile-featured-heading-${categoryIdx}`}
-                                className="font-medium text-gray-900"
-                              >
-                                Featured
-                              </p>
-                              <ul
-                                aria-labelledby={`mobile-featured-heading-${categoryIdx}`}
-                                className="mt-6 space-y-6"
-                              >
-                                {category.featured.map((item) => (
-                                  <li key={item.name} className="flex">
-                                    <a
-                                      href={item.href}
-                                      className="text-gray-500"
-                                    >
-                                      {item.name}
-                                    </a>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                            <div>
-                              <p
-                                id="mobile-categories-heading"
-                                className="font-medium text-gray-900"
-                              >
-                                Categories
-                              </p>
-                              <ul
-                                aria-labelledby="mobile-categories-heading"
-                                className="mt-6 space-y-6"
-                              >
-                                {category.categories.map((item) => (
-                                  <li key={item.name} className="flex">
-                                    <a
-                                      href={item.href}
-                                      className="text-gray-500"
-                                    >
-                                      {item.name}
-                                    </a>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          </div>
-                          <div className="grid grid-cols-1 gap-y-10 gap-x-6">
-                            <div>
-                              <p
-                                id="mobile-collection-heading"
-                                className="font-medium text-gray-900"
-                              >
-                                Collection
-                              </p>
-                              <ul className="mt-6 space-y-6">
-                                {category.collection.map((item) => (
-                                  <li key={item.name} className="flex">
-                                    <a
-                                      href={item.href}
-                                      className="text-gray-500"
-                                    >
-                                      {item.name}
-                                    </a>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-
-                            <div>
-                              <p className="font-medium text-gray-900">
-                                Brands
-                              </p>
-                              <ul
-                                aria-labelledby="mobile-brand-heading"
-                                className="mt-6 space-y-6"
-                              >
-                                {category.brands.map((item) => (
-                                  <li key={item.name} className="flex">
-                                    <a
-                                      href={item.href}
-                                      className="text-gray-500"
-                                    >
-                                      {item.name}
-                                    </a>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </Tab.Panel>
-                    ))}
-                  </Tab.Panels>
                 </Tab.Group>
 
                 <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                   {navigation.pages.map((page) => (
                     <div key={page.name} className="flow-root">
-                      <a
-                        href={page.href}
+                      <span
+                        onClick={() => {
+                          navigate(page.href, {
+                            state: {
+                              categoryName:
+                                page?.name === "All"
+                                  ? null
+                                  : page.name?.toLowerCase(),
+                            },
+                          });
+
+                          setOpen(false);
+                        }}
                         className="-m-2 p-2 block font-medium text-gray-900"
                       >
                         {page.name}
-                      </a>
+                      </span>
                     </div>
                   ))}
-                </div>
-
-                <div className="border-t border-gray-200 py-6 px-4 space-y-6">
-                  <div className="flow-root">
-                    <span className="-m-2 p-2 block font-medium text-gray-900">
-                      Create an account
-                    </span>
-                  </div>
-                  <div className="flow-root">
-                    <span className="-m-2 p-2 block font-medium text-gray-900">
-                      Sign in
-                    </span>
-                  </div>
-                </div>
-
-                <div className="border-t border-gray-200 py-6 px-4 space-y-6">
-                  {/* Currency selector */}
-                  <form>
-                    <div className="inline-block">
-                      <label htmlFor="mobile-currency" className="sr-only">
-                        Currency
-                      </label>
-                      <div className="-ml-2 group relative border-transparent rounded-md focus-within:ring-2 focus-within:ring-white">
-                        <select
-                          id="mobile-currency"
-                          name="currency"
-                          className="bg-none border-transparent rounded-md py-0.5 pl-2 pr-5 flex items-center text-sm font-medium text-gray-700 group-hover:text-gray-800 focus:outline-none focus:ring-0 focus:border-transparent"
-                        >
-                          {currencies.map((currency) => (
-                            <option key={currency}>{currency}</option>
-                          ))}
-                        </select>
-                        <div className="absolute right-0 inset-y-0 flex items-center pointer-events-none">
-                          <svg
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 20 20"
-                            className="w-5 h-5 text-gray-500"
-                          >
-                            <path
-                              stroke="currentColor"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="1.5"
-                              d="M6 8l4 4 4-4"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
                 </div>
               </div>
             </Transition.Child>
@@ -329,12 +183,10 @@ export default function Topbar() {
               />
             )}
 
-            {/* Secondary navigation */}
             <div className="bg-transparent">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="border-b border-gray-200">
                   <div className="h-10 flex items-center justify-between">
-                    {/* Logo (lg+) */}
                     <div className="hidden lg:flex lg:items-center">
                       <span>
                         <span className="sr-only">Workflow</span>
@@ -350,161 +202,6 @@ export default function Topbar() {
                       {/* Mega menus */}
                       <Popover.Group className="ml-8 ">
                         <div className="h-full flex justify-center space-x-8">
-                          {/* {navigation.categories.map(
-                            (category, categoryIdx) => (
-                              <Popover key={category.name} className="flex">
-                                {({ open }) => (
-                                  <>
-                                    <div className="relative flex">
-                                      <Popover.Button
-                                        className={classNames(
-                                          open
-                                            ? "border-deepPink text-deepPink"
-                                            : "border-transparent text-mainBrown hover:text-mainPink",
-                                          "relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-medium border-b-2 -mb-px pt-px"
-                                        )}
-                                      >
-                                        {category.name}
-                                      </Popover.Button>
-                                    </div>
-
-                                    <Transition
-                                      as={Fragment}
-                                      enter="transition ease-out duration-200"
-                                      enterFrom="opacity-0"
-                                      enterTo="opacity-100"
-                                      leave="transition ease-in duration-150"
-                                      leaveFrom="opacity-100"
-                                      leaveTo="opacity-0"
-                                    >
-                                      <Popover.Panel className="absolute top-full inset-x-0 text-gray-500 sm:text-sm">
-                                        <div
-                                          className="absolute inset-0 top-1/2 bg-white shadow-xl"
-                                          aria-hidden="true"
-                                        />
-
-                                        <div className="relative bg-white">
-                                          <div className="max-w-7xl mx-auto px-8">
-                                            <div className="grid grid-cols-2 items-start gap-y-10 gap-x-8 pt-10 pb-12">
-                                              <div className="grid grid-cols-2 gap-y-10 gap-x-8">
-                                                <div>
-                                                  <p className="font-medium text-gray-900">
-                                                    Featured
-                                                  </p>
-                                                  <ul
-                                                    aria-labelledby={`desktop-featured-heading-${categoryIdx}`}
-                                                    className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
-                                                  >
-                                                    {category.featured.map(
-                                                      (item) => (
-                                                        <li
-                                                          key={item.name}
-                                                          className="flex"
-                                                        >
-                                                          <a
-                                                            href={item.href}
-                                                            className="hover:text-gray-800"
-                                                          >
-                                                            {item.name}
-                                                          </a>
-                                                        </li>
-                                                      )
-                                                    )}
-                                                  </ul>
-                                                </div>
-                                                <div>
-                                                  <p
-                                                    id="desktop-categories-heading"
-                                                    className="font-medium text-gray-900"
-                                                  >
-                                                    Categories
-                                                  </p>
-                                                  <ul className="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
-                                                    {category.categories.map(
-                                                      (item) => (
-                                                        <li
-                                                          key={item.name}
-                                                          className="flex"
-                                                        >
-                                                          <a
-                                                            href={item.href}
-                                                            className="hover:text-gray-800"
-                                                          >
-                                                            {item.name}
-                                                          </a>
-                                                        </li>
-                                                      )
-                                                    )}
-                                                  </ul>
-                                                </div>
-                                              </div>
-                                              <div className="grid grid-cols-2 gap-y-10 gap-x-8">
-                                                <div>
-                                                  <p
-                                                    id="desktop-collection-heading"
-                                                    className="font-medium text-gray-900"
-                                                  >
-                                                    Collection
-                                                  </p>
-                                                  <ul className="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
-                                                    {category.collection.map(
-                                                      (item) => (
-                                                        <li
-                                                          key={item.name}
-                                                          className="flex"
-                                                        >
-                                                          <a
-                                                            href={item.href}
-                                                            className="hover:text-gray-800"
-                                                          >
-                                                            {item.name}
-                                                          </a>
-                                                        </li>
-                                                      )
-                                                    )}
-                                                  </ul>
-                                                </div>
-
-                                                <div>
-                                                  <p
-                                                    id="desktop-brand-heading"
-                                                    className="font-medium text-gray-900"
-                                                  >
-                                                    Brands
-                                                  </p>
-                                                  <ul
-                                                    aria-labelledby="desktop-brand-heading"
-                                                    className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
-                                                  >
-                                                    {category.brands.map(
-                                                      (item) => (
-                                                        <li
-                                                          key={item.name}
-                                                          className="flex"
-                                                        >
-                                                          <a
-                                                            href={item.href}
-                                                            className="hover:text-gray-800"
-                                                          >
-                                                            {item.name}
-                                                          </a>
-                                                        </li>
-                                                      )
-                                                    )}
-                                                  </ul>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </Popover.Panel>
-                                    </Transition>
-                                  </>
-                                )}
-                              </Popover>
-                            )
-                          )} */}
-
                           {navigation.pages.map((page) => (
                             <NavLink
                               key={page.name}
@@ -524,7 +221,6 @@ export default function Topbar() {
                       </Popover.Group>
                     </div>
 
-                    {/* Mobile menu and search (lg-) */}
                     <div className="flex-1 flex items-center lg:hidden">
                       <button
                         type="button"
@@ -536,7 +232,6 @@ export default function Topbar() {
                       </button>
                     </div>
 
-                    {/* Logo (lg-) */}
                     <span className="lg:hidden">
                       <span className="sr-only">Workflow</span>
                       <img
