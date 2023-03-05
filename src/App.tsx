@@ -22,6 +22,7 @@ function App() {
     <>
       <Router>
         <ToastContainer />
+
         <Routes>
           <Route element={<PageWrapper />}>
             <Route path="/" element={<StoreFront />} />
@@ -33,6 +34,7 @@ function App() {
             <Route path="/history" element={<OrderHistory />} />
           </Route>
         </Routes>
+
         <Routes>
           <Route path="/admin" element={<AdminWrapper />}>
             <Route index element={<AdminDashboardComponent />} />
@@ -40,6 +42,7 @@ function App() {
             <Route path="products" element={<AdminProductsComponent />} />
           </Route>
         </Routes>
+
         <Routes>
           <Route path="/login" element={<Login />} />
         </Routes>
